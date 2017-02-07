@@ -16,11 +16,35 @@ public class GUI {
 	private static GUIMenuLost lost = new GUIMenuLost();
 	private static GUIOverlayInGame game = new GUIOverlayInGame();
 
-	public void update() {
+	private static int fpsCap;
+	private static boolean isFPSCapped = false;
+
+	public static void update() {
+		GUI current = null;
+		switch (state) {
+		case MAIN:
+			current = main;
+			break;
+		case LOST:
+			current = lost;
+			break;
+		case PLAYING:
+			current = game;
+			break;
+		default:
+			break;
+		}
+		current.updateLogic();
+		for (int i = 0; i < current.elements.size(); i++) {
+			current.elements.get(i).update();
+		}
+	}
+
+	public void draw() {
 
 	}
 
-	public static void draw() {
+	public void updateLogic() {
 
 	}
 
@@ -69,4 +93,24 @@ public class GUI {
 		return state;
 	}
 
+	public void setFPSCap(int fpsCap) {
+		isFPSCapped = fpsCap == 0;
+		this.fpsCap = fpsCap;
+	}
+
+	public static boolean isFPSCapped() {
+		return isFPSCapped;
+	}
+
+	public static int getFPSCap() {
+		return fpsCap;
+	}
+
+	public GUIElement getElement(int parentID) {
+		if (parentID >= 0 && parentID < elements.size()) {
+			return elements.get(parentID);
+		} else {
+			return null;
+		}
+	}
 }

@@ -19,7 +19,7 @@ public class EntityPlayer extends Entity {
 	private static float origY = 0f;
 
 	float playerMoveSpeed = 10f * (1 + origScale);
-	float jumpSpeed = 15f * (1 + origScale);
+	float jumpSpeed = 105f * (1 + origScale);
 	float gravity = 1.35f * (1 + origScale);
 	boolean jump = false;
 	float jumpBounceAmt = 2f;
@@ -97,11 +97,13 @@ public class EntityPlayer extends Entity {
 		} else {
 			setRot((float) -Math.sin(playerDeltaX * time / 10f) * 20f);
 		}
-		Game.gen.map.offset(-getX() + Main.getWidth() / 2 - getWidth() / 2, -getY() + Main.getHeight() / 2 - getHeight() / 2);
-		Game.bg.offset((Game.gen.map.getOffsetX()/5f), (Game.gen.map.getOffsetY()/5f) -500);
+		Game.gen.map.offset(-getX() + Main.getWidth() / 2 - getWidth() / 2,
+				-getY() + Main.getHeight() / 2 - getHeight() / 2);
+		Game.bg.offset((Game.gen.map.getOffsetX() / 5f), (Game.gen.map.getOffsetY() / 5f) - 500);
 	}
 
-	public static double scale(final double valueIn, final double baseMin, final double baseMax, final double limitMin, final double limitMax) {
+	public static double scale(final double valueIn, final double baseMin, final double baseMax, final double limitMin,
+			final double limitMax) {
 		return ((limitMax - limitMin) * (valueIn - baseMin) / (baseMax - baseMin)) + limitMin;
 	}
 

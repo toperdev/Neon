@@ -1,7 +1,5 @@
 package net.toper.ent;
 
-import net.toper.manager.SpriteManager;
-
 public class EntityEnemyExample extends EntityEnemy {
 
 	private float origScale = 0.15f;
@@ -9,7 +7,7 @@ public class EntityEnemyExample extends EntityEnemy {
 	// Initialization of enemy, sets position, size, sprite, how much damage it
 	// does, life amount, and other stuffs
 	public EntityEnemyExample(float x, float y) {
-		super(x, y, 0, SpriteManager.getEnemyCarSprite());
+		super(x, y, 0, null);
 		setScale(origScale);
 		setLife(100f);
 		setDamageAmt(2f);

@@ -17,6 +17,8 @@ public class Game {
 	public static MapGen gen = new MapGen();
 	public static Background bg = new Background();
 
+	private static boolean hasGameStarted = false;
+
 	public Game() {
 	}
 
@@ -24,27 +26,32 @@ public class Game {
 	}
 
 	public static void update() {
+		GUI.update();
 		switch (GUI.getState()) {
 		case PLAYING:
+			initGame();
 			em.update();
 			gen.map.update();
 			break;
-		case PAUSE:
-			break;
-		case LOST:
-			break;
-		case MAIN:
+		default:
 			break;
 		}
 	}
 
 	public static void init() {
-		GUI.setState(GameState.PLAYING);
-		em.init();
-		player = new EntityPlayer();
-		em.addEntity(player);
-		bg.setX(player.getScreenX());
-		bg.setY(player.getScreenY() - 350);
+		GUI.setState(GameState.MAIN);
+	}
+
+	private static void initGame() {
+		if (!hasGameStarted) {
+			em.init();
+			player = new EntityPlayer();
+			em.addEntity(player);
+			new Background();
+			bg.setX(player.getScreenX());
+			bg.setY(player.getScreenY() - 350);
+			hasGameStarted = true;
+		}
 	}
 
 	public static void render() {

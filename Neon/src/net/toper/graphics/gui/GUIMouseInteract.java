@@ -1,0 +1,38 @@
+package net.toper.graphics.gui;
+
+import org.newdawn.slick.geom.Rectangle;
+
+import net.toper.Main;
+
+public class GUIMouseInteract extends GUIElement {
+
+	private boolean isClicked = false;
+	private boolean hover = false;
+
+	public GUIMouseInteract(GUI gui, int parentID) {
+		super(gui.getElement(parentID).getX(), gui.getElement(parentID).getY(), gui.getElement(parentID).getWidth(),
+				gui.getElement(parentID).getHeight());
+	}
+
+	public void update() {
+		if (getBounds().intersects(new Rectangle(Main.input.getMouseX(), Main.input.getMouseY(), 5, 5))) {
+			hover = true;
+			if (Main.input.isMouseButtonDown(0)) {
+				isClicked = true;
+			} else {
+				isClicked = false;
+			}
+		} else {
+			hover = false;
+			isClicked = false;
+		}
+	}
+
+	public boolean clicked() {
+		return isClicked;
+	}
+
+	public boolean hover() {
+		return hover;
+	}
+}

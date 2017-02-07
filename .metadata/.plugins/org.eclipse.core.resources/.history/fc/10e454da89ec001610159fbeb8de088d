@@ -1,0 +1,5 @@
+package net.toper.graphics.gui;
+
+public class GUIClickable extends GUIElement {
+
+}

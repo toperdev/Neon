@@ -1,0 +1,22 @@
+package net.toper.graphics.gui;
+
+public class GUIMenuMain extends GUI {
+
+	private int startButtonID;
+
+	private int clickStartID;
+
+	public GUIMenuMain() {
+		setFPSCap(60);
+		startButtonID = addElement(new GUIElementText(460, 200, "Start"));
+		addElement(new GUIElementText(460, 100, "SUCC"));
+		clickStartID = addElement(new GUIClickable(this, startButtonID));
+	}
+	
+	public void update(){
+		if(getElement(clickStartID).clicked()){
+			
+		}
+	}
+
+}

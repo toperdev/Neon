@@ -1,0 +1,9 @@
+package net.toper.graphics.gui;
+
+public class GUIMenuMain extends GUI {
+	
+	public GUIMenuMain(){
+		addElement(new GUIElementText(300, 100, "NEW GAME SON"));
+	}
+
+}

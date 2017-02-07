@@ -1,0 +1,43 @@
+package net.toper.graphics;
+
+import org.newdawn.slick.Color;
+import org.newdawn.slick.TrueTypeFont;
+
+public class Font {
+
+	TrueTypeFont font;
+	java.awt.Font awtFont;
+	private int size;
+	private Color color;
+
+	public Font() {
+		setSize(16);
+		font = new TrueTypeFont(awtFont, true);
+		color = Color.white;
+
+	}
+
+	public void setSize(int size) {
+		if (this.size != size) {
+			awtFont = new java.awt.Font("Verdana", java.awt.Font.BOLD, size);
+			font = new TrueTypeFont(awtFont, true);
+			this.size = size;
+		}
+	}
+
+	public void setColor(Color c) {
+		color = c;
+	}
+
+	public void drawText(float x, float y, String text) {
+		font.drawString(x, y, text, color);
+	}
+
+	public float getHeight(String text) {
+		return font.getHeight(text);
+	}
+
+	public float getWidth(String text) {
+		return font.getWidth(text);
+	}
+

@@ -1,0 +1,7 @@
+package net.toper.manager;
+
+import net.toper.graphics.Sprite;
+
+public class SpriteManager {
+
+}

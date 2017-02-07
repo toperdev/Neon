@@ -1,0 +1,26 @@
+package net.toper.graphics.gui;
+
+import org.newdawn.slick.geom.Rectangle;
+
+import net.toper.Main;
+
+public class GUIClickable extends GUIElement {
+
+	private boolean isClicked = false;
+
+	public GUIClickable(GUI gui, int parentID) {
+		super(gui.getElement(parentID).getX(), gui.getElement(parentID).getY(), gui.getElement(parentID).getWidth(),
+				gui.getElement(parentID).getHeight());
+	}
+
+	public void update() {
+		if (getBounds().contains(new Rectangle(Main.input.getMouseX(), Main.input.getMouseY(), 1, 1)))
+			if (Main.input.isMouseButtonDown(1)) {
+				isClicked = true;
+			}
+	}
+
+	public boolean clicked() {
+		return isClicked;
+	}
+}

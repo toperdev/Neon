@@ -1,0 +1,9 @@
+package net.toper.graphics.gui;
+
+public class GUIClickable extends GUIElement {
+
+	public GUIClickable(GUI gui, int parentID) {
+		super(gui.getElement(parentID).getX(), gui.getElement(parentID).getY(), gui.getElement(parentID).getWidth(), gui.getElement(parentID).getHeight());
+	}
+
+}

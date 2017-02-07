@@ -5,7 +5,8 @@ public class GUIElementText extends GUIElement {
 	private String text;
 
 	public GUIElementText(float x, float y, String text) {
-		super(x, y, 0, 0);
+		super(x, y, GUI.getFont().getWidth(text), GUI.getFont().getHeight(text));
+		System.out.println(getWidth() + " " + getHeight());
 		this.text = text;
 	}
 

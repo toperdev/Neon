@@ -1,0 +1,10 @@
+package net.toper.graphics.gui;
+
+public class GUIMenuMain extends GUI {
+
+	public GUIMenuMain() {
+		setFPSCap(60);
+		addElement(new GUIElementText(500, 100, "NEW GAME SON"));
+	}
+
+}

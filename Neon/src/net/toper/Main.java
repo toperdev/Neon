@@ -7,7 +7,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-import net.toper.graphics.Background;
 import net.toper.manager.InputManager;
 
 public class Main extends BasicGame {
@@ -21,6 +20,7 @@ public class Main extends BasicGame {
 	double ns = 1000000000 / ticks;
 	static float delta = 0;
 	private double updates;
+	private static AppGameContainer app;
 
 	public Main() {
 		super("lel");
@@ -28,10 +28,9 @@ public class Main extends BasicGame {
 
 	public static void main(String[] args) {
 		try {
-			AppGameContainer app = new AppGameContainer(new Main());
+			app = new AppGameContainer(new Main());
 			app.setDisplayMode(1000, (1000 / 16) * 9, false);
 			app.setUpdateOnlyWhenVisible(false);
-			// app.setTargetFrameRate(120);
 			app.start();
 		} catch (SlickException e) {
 			e.printStackTrace();
@@ -41,7 +40,6 @@ public class Main extends BasicGame {
 	public void init(GameContainer container) throws SlickException {
 		gc = container;
 		Game.init();
-		new Background();
 		i.setInput(gc.getInput());
 		input = gc.getInput();
 		delta = 0;
@@ -56,7 +54,7 @@ public class Main extends BasicGame {
 		long now = System.nanoTime();
 		delta += (now - lastTime) / ns;
 		lastTime = now;
-		if (delta >= 1f) {
+		while (delta >= 1f) {
 			updateLogic();
 			delta--;
 			updates++;
