@@ -3,7 +3,7 @@ package net.toper.graphics.gui;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Rectangle;
 
-import net.toper.graphics.FontManager;
+import net.toper.graphics.Font;
 
 public class GUIElement {
 
@@ -14,14 +14,14 @@ public class GUIElement {
 	private float width;
 	private float height;
 	protected Color c;
-	private FontManager f;
+	private Font f;
 
 	public GUIElement(float x, float y, float width, float height) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		f = new FontManager();
+		f = new Font();
 	}
 
 	public void render() {
@@ -59,7 +59,7 @@ public class GUIElement {
 		return isClickable;
 	}
 
-	public FontManager getFont() {
+	public Font getFont() {
 		return f;
 	}
 
@@ -73,10 +73,6 @@ public class GUIElement {
 
 	public void update() {
 
-	}
-
-	public void setColor(Color c) {
-		
 	}
 
 }

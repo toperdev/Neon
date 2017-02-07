@@ -19,7 +19,7 @@ public class EntityPlayer extends Entity {
 	private static float origY = 0f;
 
 	float playerMoveSpeed = 10f * (1 + origScale);
-	float jumpSpeed = 15f * (1 + origScale);
+	float jumpSpeed = 105f * (1 + origScale);
 	float gravity = 1.35f * (1 + origScale);
 	boolean jump = false;
 	float jumpBounceAmt = 2f;

@@ -11,17 +11,18 @@ public class GUIMenuMain extends GUI {
 	public GUIMenuMain() {
 		setFPSCap(60);
 		addElement(new GUIElementText(460, 100, "SUCC"));
-		startButtonID = addElement(new GUIElementText(460, 200, "Start",30));
-		clickStartID = addElement(new GUIElementClickable(this, startButtonID));
+		startButtonID = addElement(new GUIElementText(460, 200, "Start"));
+		clickStartID = addElement(new GUIMouseInteract(this, startButtonID));
 	}
 
 	public void updateLogic() {
-		if (((GUIElementClickable) getElement(clickStartID)).clicked()) {
+		if (((GUIMouseInteract) getElement(clickStartID)).clicked()) {
 			GUI.setState(GameState.PLAYING);
 		}
-		getElement(startButtonID).setColor(Color.white);
-		if (((GUIElementClickable) getElement(clickStartID)).hover()) {
-			getElement(startButtonID).setColor(Color.red);
+		if (((GUIMouseInteract) getElement(clickStartID)).hover()) {
+			getElement(clickStartID).getFont().setColor(new Color(1, 0, 0));
+		} else {
+			getElement(clickStartID).getFont().setColor(Color.white);
 		}
 	}
 

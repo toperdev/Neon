@@ -3,13 +3,13 @@ package net.toper.graphics.gui;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.toper.graphics.FontManager;
+import net.toper.graphics.Font;
 
 public class GUI {
 
 	private List<GUIElement> elements = new ArrayList<GUIElement>();
 
-	private static FontManager font = new FontManager();
+	private static Font font = new Font();
 	private static GameState state;
 
 	private static GUIMenuMain main = new GUIMenuMain();
@@ -48,7 +48,7 @@ public class GUI {
 
 	}
 
-	public static FontManager getFont() {
+	public static Font getFont() {
 		return font;
 	}
 
