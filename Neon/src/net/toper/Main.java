@@ -31,6 +31,7 @@ public class Main extends BasicGame {
 			app = new AppGameContainer(new Main());
 			app.setDisplayMode(1000, (1000 / 16) * 9, false);
 			app.setUpdateOnlyWhenVisible(false);
+			app.setSmoothDeltas(true);
 			app.start();
 		} catch (SlickException e) {
 			e.printStackTrace();
@@ -39,9 +40,9 @@ public class Main extends BasicGame {
 
 	public void init(GameContainer container) throws SlickException {
 		gc = container;
-		Game.init();
 		i.setInput(gc.getInput());
 		input = gc.getInput();
+		Game.init();
 		delta = 0;
 		lastTime = System.nanoTime();
 	}
