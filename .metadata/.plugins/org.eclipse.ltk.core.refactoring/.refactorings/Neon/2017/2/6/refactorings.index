@@ -2,3 +2,5 @@
 1486398059745	Rename method 'fpsCap'
 1486398064817	Rename method 'FPSCap'
 1486400059403	Rename type 'GUIClickable'
+1486438553841	Rename type 'GUIMouseInteract'
+1486439844736	Rename type 'Font'
