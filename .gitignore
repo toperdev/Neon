@@ -1,3 +1,6 @@
+.metadata/*
+.recommenders/*
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
@@ -38,8 +41,6 @@ $RECYCLE.BIN/
 .TemporaryItems
 .Trashes
 .VolumeIcon.icns
-.metadata/
-.recommenders/
 
 # Directories potentially created on remote AFP share
 .AppleDB
