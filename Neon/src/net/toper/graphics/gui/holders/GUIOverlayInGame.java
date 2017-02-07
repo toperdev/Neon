@@ -1,4 +1,7 @@
-package net.toper.graphics.gui;
+package net.toper.graphics.gui.holders;
+
+import net.toper.graphics.gui.GUI;
+import net.toper.graphics.gui.GUIElementText;
 
 public class GUIOverlayInGame extends GUI {
 

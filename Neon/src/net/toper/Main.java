@@ -13,6 +13,7 @@ public class Main extends BasicGame {
 
 	public static InputManager i = new InputManager();
 	public static GameContainer gc;
+	public static Graphics g;
 	public static Input input;
 
 	long lastTime = System.nanoTime();
@@ -30,8 +31,6 @@ public class Main extends BasicGame {
 		try {
 			app = new AppGameContainer(new Main());
 			app.setDisplayMode(1000, (1000 / 16) * 9, false);
-			app.setUpdateOnlyWhenVisible(false);
-			app.setSmoothDeltas(true);
 			app.start();
 		} catch (SlickException e) {
 			e.printStackTrace();
@@ -51,7 +50,7 @@ public class Main extends BasicGame {
 		Game.update();
 	}
 
-	private void tick() {
+	private void logic() {
 		long now = System.nanoTime();
 		delta += (now - lastTime) / ns;
 		lastTime = now;
@@ -66,9 +65,12 @@ public class Main extends BasicGame {
 	}
 
 	public void render(GameContainer gc, Graphics g) throws SlickException {
-		g.setAntiAlias(true);
+		logic();
+		render();
+	}
+
+	private void render() {
 		Game.render();
-		tick();
 	}
 
 	public static float getDelta() {

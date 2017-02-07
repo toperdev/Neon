@@ -1,6 +1,11 @@
-package net.toper.graphics.gui;
+package net.toper.graphics.gui.holders;
 
 import org.newdawn.slick.Color;
+
+import net.toper.graphics.gui.GUI;
+import net.toper.graphics.gui.GUIElementClickable;
+import net.toper.graphics.gui.GUIElementText;
+import net.toper.graphics.gui.GameState;
 
 public class GUIMenuMain extends GUI {
 

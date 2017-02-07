@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.toper.graphics.FontManager;
+import net.toper.graphics.gui.holders.GUIMenuLost;
+import net.toper.graphics.gui.holders.GUIMenuMain;
+import net.toper.graphics.gui.holders.GUIOverlayInGame;
 
 public class GUI {
 
