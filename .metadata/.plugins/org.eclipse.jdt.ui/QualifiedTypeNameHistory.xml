@@ -2,11 +2,18 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="net.toper.graphics.gui.GUIMenuMain"/>
 <fullyQualifiedTypeName name="net.toper.graphics.gui.GUI"/>
-<fullyQualifiedTypeName name="net.toper.Main"/>
 <fullyQualifiedTypeName name="org.lwjgl.util.Rectangle"/>
-<fullyQualifiedTypeName name="org.newdawn.slick.geom.Rectangle"/>
 <fullyQualifiedTypeName name="net.toper.graphics.Font"/>
 <fullyQualifiedTypeName name="java.awt.Color"/>
 <fullyQualifiedTypeName name="org.newdawn.slick.Color"/>
+<fullyQualifiedTypeName name="javax.swing.text.html.parser.Entity"/>
+<fullyQualifiedTypeName name="net.toper.ent.Entity"/>
+<fullyQualifiedTypeName name="net.toper.physics.PhysicsElement"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="net.toper.physics.PhysicsElementGravity"/>
+<fullyQualifiedTypeName name="org.newdawn.slick.geom.Rectangle"/>
+<fullyQualifiedTypeName name="net.toper.Game"/>
+<fullyQualifiedTypeName name="net.toper.physics.Physics"/>
+<fullyQualifiedTypeName name="net.toper.Main"/>
+<fullyQualifiedTypeName name="java.lang.Math"/>
 </qualifiedTypeNameHistroy>
