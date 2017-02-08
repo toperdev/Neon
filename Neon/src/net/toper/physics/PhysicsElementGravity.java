@@ -92,4 +92,8 @@ public class PhysicsElementGravity extends PhysicsElement {
 		verticalVeloctiy = speed;
 	}
 
+	public void setScale(float scale) {
+		gravity *= scale;
+	}
+
 }

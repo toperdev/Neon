@@ -34,7 +34,7 @@ public class GUI {
 		default:
 			break;
 		}
-		current.updateLogic();
+		current.updateMenu();
 		for (int i = 0; i < current.elements.size(); i++) {
 			current.elements.get(i).update();
 		}
@@ -44,7 +44,7 @@ public class GUI {
 
 	}
 
-	public void updateLogic() {
+	public void updateMenu() {
 
 	}
 

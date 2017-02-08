@@ -9,12 +9,14 @@ import net.toper.physics.PhysicsElementGravity;
 
 public class EntityPlayer extends Entity {
 
-	public static float origScale = 0.25f;
+	public static float origScale = 0.5f;
 	private static float origX = 0;
 	private static float origY = 0f;
 
-	float playerMoveSpeed = 10f * (1 + origScale);
-	float jumpSpeed = 15f * (1 + origScale);
+	private float time;
+
+	float playerMoveSpeed = 25f * origScale;
+	float jumpSpeed = 60f * origScale;
 
 	int phys;
 	PhysicsElementGravity movement;
@@ -31,18 +33,22 @@ public class EntityPlayer extends Entity {
 	}
 
 	public void update() {
+		time += getDelta();
 		Input input = Main.gc.getInput();
 		// Close game when the escape key is hit
 		if (input.isKeyDown(Input.KEY_ESCAPE)) {
 			Main.close();
 		}
+		setRot(0);
 		if (input.isKeyDown(Input.KEY_RIGHT) || input.isKeyDown(Input.KEY_D)) {
 			getSprite().flip(false);
 			movement.setHorizontalVelocty(playerMoveSpeed);
+			setRot((float) Math.sin((time / 7f)) * 15f);
 		}
 		if (input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_A)) {
 			getSprite().flip(true);
 			movement.setHorizontalVelocty(-playerMoveSpeed);
+			setRot((float) -Math.sin((time / 7f)) * 15f);
 		}
 
 		if (input.isKeyDown(Input.KEY_SPACE) || input.isKeyDown(Input.KEY_W) || input.isKeyDown(Input.KEY_UP)) {
@@ -54,7 +60,7 @@ public class EntityPlayer extends Entity {
 		setY(movement.getY());
 
 		Game.gen.map.offset(-getX() + getScreenX(), -getY() + getScreenY());
-		Game.bg.offset((Game.gen.map.getOffsetX() / 5f), (Game.gen.map.getOffsetY() / 5f) - 500);
+		Game.bg.offset((Game.gen.map.getOffsetX() / 2f), (Game.gen.map.getOffsetY() / 2f));
 	}
 
 }

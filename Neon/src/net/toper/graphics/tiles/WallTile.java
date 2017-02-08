@@ -8,7 +8,7 @@ public class WallTile extends Tile {
 	public static Color mapGenReference = new Color(0xffFF00D4);
 
 	public WallTile(float x, float y, float scale, float tileSize) {
-		super(x, y, tileSize, new Sprite("res/wall.jpg", scale));
+		super(x, y, tileSize, new Sprite("res/wall.png", scale));
 	}
 
 }
