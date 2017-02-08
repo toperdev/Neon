@@ -3,13 +3,15 @@ package net.toper.physics;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.toper.Main;
+
 public class Physics implements Runnable {
 
 	long lastTime = System.nanoTime();
 	final double ticks = 60D;
+	double ticksUpdates = 60D;
 	double ns = 1000000000 / ticks;
 	static float delta = 0;
-	private double updates;
 	private boolean running = true;
 
 	List<PhysicsElement> elements = new ArrayList<PhysicsElement>();
@@ -18,17 +20,14 @@ public class Physics implements Runnable {
 		while (running) {
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
-			lastTime = now;
 			while (delta >= 1f) {
 				updateElements();
+				Main.addPhysicsFPS();
 				delta--;
-				updates++;
 			}
-			if (updates >= 60) {
-				System.out.println("Physics updates: " + updates);
-				updates = 0;
-			}
+			lastTime = now;
 		}
+
 	}
 
 	public void updateElements() {

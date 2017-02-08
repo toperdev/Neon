@@ -21,6 +21,8 @@ public class Main extends BasicGame {
 	double ns = 1000000000 / ticks;
 	static float delta = 0;
 	private double updates;
+	private float fps;
+	private static float physicsFPS;
 
 	private static AppGameContainer app;
 	private static boolean shouldClose = false;
@@ -65,13 +67,17 @@ public class Main extends BasicGame {
 			updates++;
 		}
 		if (updates >= 60) {
+			System.out.println("Game FPS: " + fps + " Physics FPS: " + physicsFPS);
+			fps = 0;
 			updates = 0;
+			physicsFPS = 0;
 		}
 	}
 
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		logic();
 		render();
+		fps++;
 	}
 
 	private void render() {
@@ -103,6 +109,10 @@ public class Main extends BasicGame {
 
 	public static void close() {
 		shouldClose = true;
+	}
+
+	public static void addPhysicsFPS() {
+		physicsFPS++;
 	}
 
 }

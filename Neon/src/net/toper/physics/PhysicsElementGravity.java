@@ -8,7 +8,7 @@ import net.toper.ent.Entity;
 public class PhysicsElementGravity extends PhysicsElement {
 
 	private float gravity = -9.8f;
-	private float terminalVelocity = 54f;
+	private float terminalVelocity = 250f;
 
 	private float x;
 	private float y;
@@ -26,6 +26,7 @@ public class PhysicsElementGravity extends PhysicsElement {
 		x = e.getX();
 		y = e.getY();
 		bounds = e.getBounds();
+		gravity *= e.getScale();
 	}
 
 	public void update(float delta) {
@@ -55,8 +56,7 @@ public class PhysicsElementGravity extends PhysicsElement {
 
 		x += deltaX;
 		y -= deltaY;
-
-		System.out.println(x + " " + y + " " + deltaX + " " + deltaY);
+		horizontalVelocity = 0;
 	}
 
 	public float getDeltaY() {
