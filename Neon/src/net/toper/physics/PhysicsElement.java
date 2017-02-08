@@ -2,8 +2,10 @@ package net.toper.physics;
 
 public class PhysicsElement {
 
-	public void update(){
-		
+	public float time;
+
+	public void update(float delta) {
+
 	}
 
 }

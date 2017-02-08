@@ -19,9 +19,6 @@ public class GUI {
 	private static GUIMenuLost lost = new GUIMenuLost();
 	private static GUIOverlayInGame game = new GUIOverlayInGame();
 
-	private static int fpsCap;
-	private static boolean isFPSCapped = false;
-
 	public static void update() {
 		GUI current = null;
 		switch (state) {
@@ -94,19 +91,6 @@ public class GUI {
 
 	public static GameState getState() {
 		return state;
-	}
-
-	public void setFPSCap(int fpsCap) {
-		isFPSCapped = fpsCap == 0;
-		this.fpsCap = fpsCap;
-	}
-
-	public static boolean isFPSCapped() {
-		return isFPSCapped;
-	}
-
-	public static int getFPSCap() {
-		return fpsCap;
 	}
 
 	public GUIElement getElement(int parentID) {

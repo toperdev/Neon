@@ -14,9 +14,8 @@ public class GUIMenuMain extends GUI {
 	private int clickStartID;
 
 	public GUIMenuMain() {
-		setFPSCap(60);
 		addElement(new GUIElementText(460, 100, "SUCC"));
-		startButtonID = addElement(new GUIElementText(460, 200, "Start",30));
+		startButtonID = addElement(new GUIElementText(460, 200, "Start", 30));
 		clickStartID = addElement(new GUIElementClickable(this, startButtonID));
 	}
 

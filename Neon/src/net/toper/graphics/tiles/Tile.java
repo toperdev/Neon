@@ -3,7 +3,6 @@ package net.toper.graphics.tiles;
 import org.newdawn.slick.geom.Rectangle;
 
 import net.toper.graphics.Sprite;
-import net.toper.manager.MapGen;
 
 public class Tile {
 

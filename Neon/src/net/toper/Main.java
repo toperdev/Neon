@@ -21,7 +21,9 @@ public class Main extends BasicGame {
 	double ns = 1000000000 / ticks;
 	static float delta = 0;
 	private double updates;
+
 	private static AppGameContainer app;
+	private static boolean shouldClose = false;
 
 	public Main() {
 		super("lel");
@@ -51,6 +53,9 @@ public class Main extends BasicGame {
 	}
 
 	private void logic() {
+		if (shouldClose) {
+			closeRequested();
+		}
 		long now = System.nanoTime();
 		delta += (now - lastTime) / ns;
 		lastTime = now;
@@ -85,7 +90,19 @@ public class Main extends BasicGame {
 		return gc.getHeight();
 	}
 
-	public void update(GameContainer gc, int arg1) throws SlickException {
+	public void update(GameContainer arg0, int arg1) throws SlickException {
 
 	}
+
+	public boolean closeRequested() {
+		Game.close();
+		gc.exit();
+		System.exit(0);
+		return true;
+	}
+
+	public static void close() {
+		shouldClose = true;
+	}
+
 }
