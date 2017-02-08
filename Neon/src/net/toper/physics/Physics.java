@@ -7,7 +7,6 @@ import net.toper.Main;
 
 public class Physics implements Runnable {
 
-	long lastTime = System.nanoTime();
 	final double ticks = 60D;
 	double ticksUpdates = 60D;
 	double ns = 1000000000 / ticks;
@@ -17,10 +16,11 @@ public class Physics implements Runnable {
 	List<PhysicsElement> elements = new ArrayList<PhysicsElement>();
 
 	public void run() {
+		long lastTime = System.nanoTime();
 		while (running) {
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
-			while (delta >= 1f) {
+			while (delta >= 1f && running) {
 				updateElements();
 				Main.addPhysicsFPS();
 				delta--;
@@ -45,8 +45,12 @@ public class Physics implements Runnable {
 		running = false;
 	}
 
-	public PhysicsElement getElement(int phys) {
-		return elements.get(phys);
+	public PhysicsElement getElement(int parentID) {
+		if (parentID >= 0 && parentID < elements.size()) {
+			return elements.get(parentID);
+		} else {
+			return null;
+		}
 	}
 
 }

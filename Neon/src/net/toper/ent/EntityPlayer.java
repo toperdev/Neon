@@ -9,14 +9,14 @@ import net.toper.physics.PhysicsElementGravity;
 
 public class EntityPlayer extends Entity {
 
-	public static float origScale = 0.25f;
+	public static float origScale = 0.5f;
 	private static float origX = 0;
 	private static float origY = 0f;
 
 	private float time;
 
-	float playerMoveSpeed = 10f * (1 + origScale);
-	float jumpSpeed = 15f * (1 + origScale);
+	float playerMoveSpeed = 25f * origScale;
+	float jumpSpeed = 60f * origScale;
 
 	int phys;
 	PhysicsElementGravity movement;
@@ -43,12 +43,12 @@ public class EntityPlayer extends Entity {
 		if (input.isKeyDown(Input.KEY_RIGHT) || input.isKeyDown(Input.KEY_D)) {
 			getSprite().flip(false);
 			movement.setHorizontalVelocty(playerMoveSpeed);
-			setRot((float) Math.sin((time / 5f)) * 20f);
+			setRot((float) Math.sin((time / 7f)) * 15f);
 		}
 		if (input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_A)) {
 			getSprite().flip(true);
 			movement.setHorizontalVelocty(-playerMoveSpeed);
-			setRot((float) -Math.sin((time / 5f)) * 20f);
+			setRot((float) -Math.sin((time / 7f)) * 15f);
 		}
 
 		if (input.isKeyDown(Input.KEY_SPACE) || input.isKeyDown(Input.KEY_W) || input.isKeyDown(Input.KEY_UP)) {
@@ -60,7 +60,7 @@ public class EntityPlayer extends Entity {
 		setY(movement.getY());
 
 		Game.gen.map.offset(-getX() + getScreenX(), -getY() + getScreenY());
-		Game.bg.offset((Game.gen.map.getOffsetX() / 2f), (Game.gen.map.getOffsetY() / 2f) - 500);
+		Game.bg.offset((Game.gen.map.getOffsetX() / 2f), (Game.gen.map.getOffsetY() / 2f));
 	}
 
 }

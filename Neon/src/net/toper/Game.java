@@ -63,9 +63,8 @@ public class Game {
 			p = new Physics();
 			player = new EntityPlayer();
 			em.addEntity(player);
-			new Background();
-			bg.setX(player.getScreenX());
-			bg.setY(player.getScreenY() - 350);
+			bg.setX(-300f);
+			bg.setY(-800f);
 			physicsThread = new Thread(p);
 			physicsThread.start();
 			hasGameStarted = true;
