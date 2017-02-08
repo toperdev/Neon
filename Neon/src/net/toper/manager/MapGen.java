@@ -9,7 +9,7 @@ import net.toper.graphics.tiles.WallTile;
 public class MapGen {
 	public Map map = new Map();
 	private static float mapScale = 1f;
-	private static float tileSize = 32f;
+	private static float tileSize = 64f;
 	private static int mapWidth = 1000;
 	Image mapSource;
 

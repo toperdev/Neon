@@ -44,28 +44,30 @@ public class Game {
 
 	public static void init() {
 		GUI.setState(GameState.MAIN);
-		p = new Physics();
-		physicsThread = new Thread(p);
-		physicsThread.start();
 	}
 
 	public static void close() {
-		p.stop();
-		try {
-			physicsThread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		if (hasGameStarted) {
+			p.stop();
+			try {
+				physicsThread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
 	private static void initGame() {
 		if (!hasGameStarted) {
 			em.init();
+			p = new Physics();
 			player = new EntityPlayer();
 			em.addEntity(player);
 			new Background();
 			bg.setX(player.getScreenX());
 			bg.setY(player.getScreenY() - 350);
+			physicsThread = new Thread(p);
+			physicsThread.start();
 			hasGameStarted = true;
 		}
 	}

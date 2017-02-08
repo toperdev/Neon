@@ -57,21 +57,26 @@ public class Main extends BasicGame {
 	private void logic() {
 		if (shouldClose) {
 			closeRequested();
+		} else {
+			calculateDelta();
+			while (delta >= 1f) {
+				updateLogic();
+				delta--;
+				updates++;
+			}
+			if (updates >= 60) {
+				System.out.println("Game FPS: " + fps + " Physics FPS: " + physicsFPS);
+				fps = 0;
+				updates = 0;
+				physicsFPS = 0;
+			}
 		}
+	}
+
+	private void calculateDelta() {
 		long now = System.nanoTime();
 		delta += (now - lastTime) / ns;
 		lastTime = now;
-		while (delta >= 1f) {
-			updateLogic();
-			delta--;
-			updates++;
-		}
-		if (updates >= 60) {
-			System.out.println("Game FPS: " + fps + " Physics FPS: " + physicsFPS);
-			fps = 0;
-			updates = 0;
-			physicsFPS = 0;
-		}
 	}
 
 	public void render(GameContainer gc, Graphics g) throws SlickException {
