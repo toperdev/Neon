@@ -20,6 +20,8 @@ public class PhysicsElementGravity extends PhysicsElement {
 
 	private float yTime;
 
+	private boolean isOnGround = false;
+
 	private Rectangle bounds;
 
 	public PhysicsElementGravity(Entity e) {
@@ -47,10 +49,13 @@ public class PhysicsElementGravity extends PhysicsElement {
 			deltaY = 0;
 			verticalVeloctiy = 0;
 			yTime = 0;
+			isOnGround = true;
+		} else {
+			isOnGround = false;
 		}
 		if (Game.gen.collisionAt(new Rectangle(getX(), getY() - deltaY, bounds.getWidth(), bounds.getHeight()))) {
 			deltaY = 0;
-			verticalVeloctiy = 0;
+			verticalVeloctiy = -verticalVeloctiy / 10f;
 			yTime = 0;
 		}
 
@@ -73,6 +78,10 @@ public class PhysicsElementGravity extends PhysicsElement {
 
 	public float getY() {
 		return y;
+	}
+
+	public boolean isOnGround() {
+		return isOnGround;
 	}
 
 	public void setHorizontalVelocty(float speed) {

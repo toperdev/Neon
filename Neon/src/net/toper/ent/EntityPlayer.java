@@ -46,7 +46,8 @@ public class EntityPlayer extends Entity {
 		}
 
 		if (input.isKeyDown(Input.KEY_SPACE) || input.isKeyDown(Input.KEY_W) || input.isKeyDown(Input.KEY_UP)) {
-			movement.setVerticalVelocity(jumpSpeed);
+			if (movement.isOnGround())
+				movement.setVerticalVelocity(jumpSpeed);
 		}
 
 		setX(movement.getX());
