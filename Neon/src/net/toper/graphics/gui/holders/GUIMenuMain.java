@@ -1,7 +1,5 @@
 package net.toper.graphics.gui.holders;
 
-import org.newdawn.slick.Color;
-
 import net.toper.Main;
 import net.toper.graphics.gui.GUI;
 import net.toper.graphics.gui.GUIElementClickable;
@@ -10,24 +8,21 @@ import net.toper.graphics.gui.GameState;
 
 public class GUIMenuMain extends GUI {
 
-	private int startID;
-	private int titleID;
-	private int clickStartID;
-
 	public GUIMenuMain() {
-		titleID = addElement(new GUIElementText(Main.getWidth()/2f, 100, "SUCC", true));
-		startID = addElement(new GUIElementText(Main.getWidth()/2f, 200, "Start", true));
-		clickStartID = addElement(new GUIElementClickable(this, startID));
-		getElement(titleID).setColor(Color.white);
+		elementIDs.put("title",
+				addElement(new GUIElementText(Main.getWidth() / 2f, 100, "Mario's Autistic Brother", true)));
+		elementIDs.put("start", addElement(new GUIElementText(Main.getWidth() / 2f, 200, "Start", true)));
+		elementIDs.put("quit", addElement(new GUIElementText(Main.getWidth() / 2f, 225, "Quit", true)));
+		elementIDs.put("clickStart", addElement(new GUIElementClickable(this, elementIDs.get("start"), true)));
+		elementIDs.put("clickExit", addElement(new GUIElementClickable(this, elementIDs.get("quit"), true)));
 	}
 
 	public void updateMenu() {
-		if (((GUIElementClickable) getElement(clickStartID)).clicked()) {
+		if (((GUIElementClickable) getElement(elementIDs.get("clickStart"))).clicked()) {
 			GUI.setState(GameState.PLAYING);
 		}
-		getElement(startID).setColor(Color.white);
-		if (((GUIElementClickable) getElement(clickStartID)).hover()) {
-			getElement(startID).setColor(Color.red);
+		if (((GUIElementClickable) getElement(elementIDs.get("clickExit"))).clicked()) {
+			Main.close();
 		}
 	}
 

@@ -1,6 +1,7 @@
 package net.toper.graphics.gui;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import net.toper.graphics.FontManager;
@@ -11,6 +12,7 @@ import net.toper.graphics.gui.holders.GUIOverlayInGame;
 public class GUI {
 
 	private List<GUIElement> elements = new ArrayList<GUIElement>();
+	protected HashMap<String, Integer> elementIDs = new HashMap<String, Integer>();
 
 	private static FontManager font = new FontManager();
 	private static GameState state;
