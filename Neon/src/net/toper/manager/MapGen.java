@@ -4,6 +4,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
+import net.toper.graphics.tiles.ButtonTile;
 import net.toper.graphics.tiles.WallTile;
 
 public class MapGen {
@@ -24,12 +25,18 @@ public class MapGen {
 				if (mapSource.getColor(x, y).equals(WallTile.mapGenReference)) {
 					map.addTile(x, y, new WallTile(x, y, mapScale, tileSize));
 				}
+				if (mapSource.getColor(x, y).equals(ButtonTile.mapGenReference)) {
+					map.addTile(x, y, new ButtonTile(x, y, mapScale, tileSize));
+				}
 			}
 		}
 	}
 
 	public boolean collisionAt(Rectangle bounds) {
-		return map.isInTile(bounds);
+		return map.isInTile(bounds) == 1;
+	}
+	public boolean collisionBetween(Rectangle bounds, Rectangle bounds2) {
+		return map.isInTile(bounds, bounds2);
 	}
 
 	public static float getTileSize() {

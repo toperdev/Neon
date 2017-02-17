@@ -11,6 +11,9 @@ public class Tile {
 	private float tileSize;
 	private float x;
 	private float y;
+	private boolean collidable = true;
+	private boolean needsUpdate = false;
+	private Rectangle bounds;
 
 	public Tile(float x, float y, float tileSize, Sprite s) {
 		this.x = x;
@@ -20,6 +23,7 @@ public class Tile {
 		s.setY(y * tileSize);
 		this.s = s;
 		this.tileSize = tileSize;
+		bounds = new Rectangle(x * tileSize, y * tileSize, s.getWidth(), s.getHeight());
 	}
 
 	public void draw() {
@@ -44,7 +48,27 @@ public class Tile {
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle(x * tileSize, y * tileSize, s.getWidth(), s.getHeight());
+		return bounds;
+	}
+
+	public void setCollidable(boolean collide) {
+		this.collidable = collide;
+	}
+
+	public boolean getCollidable() {
+		return collidable;
+	}
+
+	public void update() {
+
+	}
+
+	public boolean needsUpdate() {
+		return needsUpdate;
+	}
+
+	public void needsUpdate(boolean needsUpdate) {
+		this.needsUpdate = needsUpdate;
 	}
 
 }

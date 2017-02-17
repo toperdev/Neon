@@ -20,7 +20,7 @@ public class FontManager {
 
 	public void setSize(int size) {
 		if (this.size != size) {
-			g.setFont(new TrueTypeFont(new java.awt.Font("Times New Roman", 0, size), true));
+			g.setFont(new TrueTypeFont(new java.awt.Font("Arial", 0, size), true));
 			this.size = size;
 		}
 	}

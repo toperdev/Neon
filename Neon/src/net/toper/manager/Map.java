@@ -31,6 +31,9 @@ public class Map {
 	public void update() {
 		for (Tile t : tiles.values()) {
 			t.setOffset(offX, offY);
+			if (t.needsUpdate()) {
+				t.update();
+			}
 		}
 	}
 
@@ -47,27 +50,39 @@ public class Map {
 		return offY;
 	}
 
-	public boolean isInTile(Rectangle bounds) {
-		boolean intersects = false;
+	public int isInTile(Rectangle bounds) {
+		int returnInt = 0;
 		for (int ya = ((int) (bounds.getY() / MapGen.getTileSize())); ya < ((int) (bounds.getY() + bounds.getHeight())
 				/ MapGen.getTileSize()); ya++) {
 			for (int xa = ((int) (bounds.getX() / MapGen.getTileSize())); xa < ((int) (bounds.getX()
 					+ bounds.getWidth()) / MapGen.getTileSize()); xa++) {
 				Tile t = this.tiles.get(xa + ya * MapGen.getWidth());
 				if (t != null) {
-					Rectangle bounds2 = t.getBounds();
-					if (overlaps(bounds, bounds2)) {
-						intersects = true;
+					if (!t.getCollidable()) {
+						returnInt = 2;
+					} else {
+						Rectangle bounds2 = t.getBounds();
+						if (overlaps(bounds, bounds2)) {
+							returnInt = 1;
+						}
 					}
 				}
 			}
 		}
-		return intersects;
+		return returnInt;
 	}
 
 	public boolean overlaps(Rectangle r, Rectangle r2) {
 		return r.getX() < r2.getX() + r2.getWidth() && r.getX() + r.getWidth() > r2.getX()
 				&& r.getY() < r2.getY() + r2.getHeight() && r.getY() + r.getHeight() > r2.getY();
+	}
+
+	public boolean isInTile(Rectangle bounds, Rectangle bounds2) {
+		int returnInt = 0;
+		if (overlaps(bounds, bounds2)) {
+			returnInt = 1;
+		}
+		return returnInt == 1;
 	}
 
 }
