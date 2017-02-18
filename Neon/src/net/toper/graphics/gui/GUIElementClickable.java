@@ -14,7 +14,11 @@ public class GUIElementClickable extends GUIElement {
 	private int parentID;
 	private GUI parentGUI;
 
+<<<<<<< HEAD:Neon/src/net/toper/graphics/gui/GUIElementClickable.java
 	public GUIElementClickable(GUI gui, int parentID, boolean colorOnHover) {
+=======
+	public GUIElementClickable(GUI gui, int parentID) {
+>>>>>>> master:Neon/src/net/toper/graphics/gui/GUIElementClickable.java
 		super(gui.getElement(parentID).getX(), gui.getElement(parentID).getY(), gui.getElement(parentID).getWidth(),
 				gui.getElement(parentID).getHeight());
 		this.parentID = parentID;

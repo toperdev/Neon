@@ -13,8 +13,22 @@ public class EntityPlayer extends Entity {
 	private static float origX = 0;
 	private static float origY = 0f;
 
+<<<<<<< HEAD
 	float playerMoveSpeed = 25f * origScale;
 	float jumpSpeed = 60f * origScale;
+=======
+	float playerMoveSpeed = 10f * (1 + origScale);
+	float jumpSpeed = 15f * (1 + origScale);
+	float gravity = 1.35f * (1 + origScale);
+	boolean jump = false;
+	float jumpBounceAmt = 2f;
+	boolean onGround = false;
+
+	float edgePaddingX = 250f;
+	float edgePaddingY = 50f;
+
+	Rectangle hitBox;
+>>>>>>> master
 
 	int phys;
 	PhysicsElementGravity movement;
