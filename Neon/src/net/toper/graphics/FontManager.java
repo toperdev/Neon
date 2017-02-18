@@ -20,11 +20,7 @@ public class FontManager {
 
 	public void setSize(int size) {
 		if (this.size != size) {
-<<<<<<< HEAD:Neon/src/net/toper/graphics/FontManager.java
 			g.setFont(new TrueTypeFont(new java.awt.Font("Arial", 0, size), true));
-=======
-			g.setFont(new TrueTypeFont(new java.awt.Font("Times New Roman", 0, size), true));
->>>>>>> master:Neon/src/net/toper/graphics/FontManager.java
 			this.size = size;
 		}
 	}

@@ -5,12 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import net.toper.graphics.FontManager;
-<<<<<<< HEAD
 import net.toper.graphics.gui.holders.GUIMenuLost;
 import net.toper.graphics.gui.holders.GUIMenuMain;
 import net.toper.graphics.gui.holders.GUIOverlayInGame;
-=======
->>>>>>> master
 
 public class GUI {
 

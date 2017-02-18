@@ -9,21 +9,17 @@ public class GUIElementText extends GUIElement {
 
 	public GUIElementText(float x, float y, String text) {
 		super(x, y, GUI.getFont().getWidth(text), GUI.getFont().getHeight(text));
-<<<<<<< HEAD
 		this.origText = text;
 	}
 
 	public GUIElementText(float x, float y, String text, boolean b) {
 		super(x - (GUI.getFont().getWidth(text) / 2f), y, GUI.getFont().getWidth(text), GUI.getFont().getHeight(text));
 		this.origText = text;
-=======
-		this.text = text;
->>>>>>> master
 	}
 
 	public GUIElementText(int x, int y, String text, int size) {
 		super(x, y, GUI.getFont().getWidth(text), GUI.getFont().getHeight(text));
-		this.text = text;
+		this.origText = text;
 		getFont().setSize(size);
 	}
 
@@ -36,11 +32,7 @@ public class GUIElementText extends GUIElement {
 	}
 
 	public void render() {
-<<<<<<< HEAD
 		getFont().drawText(getX(), getY(), origText + appendText);
-=======
-		getFont().drawText(getX(), getY(), text);
->>>>>>> master
 	}
 
 	public void setColor(Color c) {

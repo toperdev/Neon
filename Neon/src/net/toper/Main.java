@@ -37,14 +37,8 @@ public class Main extends BasicGame {
 	public static void main(String[] args) {
 		try {
 			app = new AppGameContainer(new Main());
-<<<<<<< HEAD
 			app.setDisplayMode(1600, (1600 / 16) * 9, false);
 			app.setShowFPS(false);
-=======
-			app.setDisplayMode(1000, (1000 / 16) * 9, false);
-			app.setUpdateOnlyWhenVisible(false);
-			app.setSmoothDeltas(true);
->>>>>>> master
 			app.start();
 		} catch (SlickException e) {
 			e.printStackTrace();
