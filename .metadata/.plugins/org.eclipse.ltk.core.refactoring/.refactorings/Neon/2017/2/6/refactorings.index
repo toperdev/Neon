@@ -4,3 +4,12 @@
 1486400059403	Rename type 'GUIClickable'
 1486438553841	Rename type 'GUIMouseInteract'
 1486439844736	Rename type 'Font'
+<<<<<<< HEAD
+1486482506749	Move compilation unit
+1486482512726	Move compilation unit
+1486482515727	Move compilation unit
+1486496555805	Rename method 'tick'
+1486571175281	Rename method 'updateLogic'
+1486572082326	Rename field 'startButtonID'
+=======
+>>>>>>> master

@@ -16,8 +16,11 @@
 <fullyQualifiedTypeName name="net.toper.physics.Physics"/>
 <fullyQualifiedTypeName name="net.toper.Main"/>
 <fullyQualifiedTypeName name="java.lang.Math"/>
+<<<<<<< HEAD
 <fullyQualifiedTypeName name="org.newdawn.slick.Graphics"/>
 <fullyQualifiedTypeName name="net.toper.manager.ActivatableTileManager"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="net.toper.graphics.tiles.ButtonTile"/>
+=======
+>>>>>>> origin/master
 </qualifiedTypeNameHistroy>

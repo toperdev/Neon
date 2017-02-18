@@ -117,6 +117,14 @@ public class Sprite {
 	public void scale(float scale2) {
 		this.scale = scale2;
 		tex = origTex.getScaledCopy(scale2);
+		mirror = origTex.getScaledCopy(scale2).getFlippedCopy(true, false);
+	}
+
+	public void crop(int x, float width, int y, float height) {
+		int wa = (int) (width / scale);
+		int ha = (int) (height / scale);
+		tex = origTex.getSubImage(x, y, wa, ha);
+		mirror = origTex.getSubImage(x, y, wa, ha).getFlippedCopy(true, false);
 	}
 
 }

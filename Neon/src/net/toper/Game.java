@@ -8,6 +8,7 @@ import net.toper.graphics.gui.GUI;
 import net.toper.graphics.gui.GameState;
 import net.toper.manager.EntityManager;
 import net.toper.manager.MapGen;
+import net.toper.physics.Physics;
 
 public class Game {
 
@@ -16,6 +17,9 @@ public class Game {
 	public static Render r = new Render();
 	public static MapGen gen = new MapGen();
 	public static Background bg = new Background();
+
+	public static Physics p;
+	private static Thread physicsThread;
 
 	private static boolean hasGameStarted = false;
 
@@ -42,14 +46,27 @@ public class Game {
 		GUI.setState(GameState.MAIN);
 	}
 
+	public static void close() {
+		if (hasGameStarted) {
+			p.stop();
+			try {
+				physicsThread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	private static void initGame() {
 		if (!hasGameStarted) {
 			em.init();
+			p = new Physics();
 			player = new EntityPlayer();
 			em.addEntity(player);
-			new Background();
-			bg.setX(player.getScreenX());
-			bg.setY(player.getScreenY() - 350);
+			bg.setX(-300f);
+			bg.setY(-800f);
+			physicsThread = new Thread(p);
+			physicsThread.start();
 			hasGameStarted = true;
 		}
 	}
