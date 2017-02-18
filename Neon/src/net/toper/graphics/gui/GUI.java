@@ -1,13 +1,21 @@
 package net.toper.graphics.gui;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import net.toper.graphics.FontManager;
+<<<<<<< HEAD
+import net.toper.graphics.gui.holders.GUIMenuLost;
+import net.toper.graphics.gui.holders.GUIMenuMain;
+import net.toper.graphics.gui.holders.GUIOverlayInGame;
+=======
+>>>>>>> master
 
 public class GUI {
 
 	private List<GUIElement> elements = new ArrayList<GUIElement>();
+	protected HashMap<String, Integer> elementIDs = new HashMap<String, Integer>();
 
 	private static FontManager font = new FontManager();
 	private static GameState state;
@@ -15,9 +23,6 @@ public class GUI {
 	private static GUIMenuMain main = new GUIMenuMain();
 	private static GUIMenuLost lost = new GUIMenuLost();
 	private static GUIOverlayInGame game = new GUIOverlayInGame();
-
-	private static int fpsCap;
-	private static boolean isFPSCapped = false;
 
 	public static void update() {
 		GUI current = null;
@@ -34,7 +39,7 @@ public class GUI {
 		default:
 			break;
 		}
-		current.updateLogic();
+		current.updateMenu();
 		for (int i = 0; i < current.elements.size(); i++) {
 			current.elements.get(i).update();
 		}
@@ -44,7 +49,7 @@ public class GUI {
 
 	}
 
-	public void updateLogic() {
+	public void updateMenu() {
 
 	}
 
@@ -91,19 +96,6 @@ public class GUI {
 
 	public static GameState getState() {
 		return state;
-	}
-
-	public void setFPSCap(int fpsCap) {
-		isFPSCapped = fpsCap == 0;
-		this.fpsCap = fpsCap;
-	}
-
-	public static boolean isFPSCapped() {
-		return isFPSCapped;
-	}
-
-	public static int getFPSCap() {
-		return fpsCap;
 	}
 
 	public GUIElement getElement(int parentID) {

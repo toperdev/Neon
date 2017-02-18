@@ -3,15 +3,16 @@ package net.toper.graphics.tiles;
 import org.newdawn.slick.geom.Rectangle;
 
 import net.toper.graphics.Sprite;
-import net.toper.manager.MapGen;
 
 public class Tile {
 
 	private Sprite s;
 	private float scale;
-	private float tileSize;
 	private float x;
 	private float y;
+	private boolean collidable = true;
+	private boolean needsUpdate = false;
+	private Rectangle bounds;
 
 	public Tile(float x, float y, float tileSize, Sprite s) {
 		this.x = x;
@@ -20,11 +21,19 @@ public class Tile {
 		s.setX(x * tileSize);
 		s.setY(y * tileSize);
 		this.s = s;
-		this.tileSize = tileSize;
+		bounds = new Rectangle(x * tileSize, y * tileSize, s.getWidth(), s.getHeight());
 	}
 
 	public void draw() {
 		s.draw();
+	}
+
+	public float getX() {
+		return x;
+	}
+
+	public float getY() {
+		return y;
 	}
 
 	public void setOffset(float offX, float offY) {
@@ -45,7 +54,27 @@ public class Tile {
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle(x * tileSize, y * tileSize, s.getWidth(), s.getHeight());
+		return bounds;
+	}
+
+	public void setCollidable(boolean collide) {
+		this.collidable = collide;
+	}
+
+	public boolean getCollidable() {
+		return collidable;
+	}
+
+	public void update() {
+
+	}
+
+	public boolean needsUpdate() {
+		return needsUpdate;
+	}
+
+	public void needsUpdate(boolean needsUpdate) {
+		this.needsUpdate = needsUpdate;
 	}
 
 }
