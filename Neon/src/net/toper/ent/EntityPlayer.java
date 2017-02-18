@@ -9,11 +9,9 @@ import net.toper.physics.PhysicsElementGravity;
 
 public class EntityPlayer extends Entity {
 
-	public static float origScale = 0.5f;
+	public static float origScale = 0.35f;
 	private static float origX = 0;
 	private static float origY = 0f;
-
-	private float time;
 
 	float playerMoveSpeed = 25f * origScale;
 	float jumpSpeed = 60f * origScale;
@@ -33,7 +31,6 @@ public class EntityPlayer extends Entity {
 	}
 
 	public void update() {
-		time += getDelta();
 		Input input = Main.gc.getInput();
 		// Close game when the escape key is hit
 		if (input.isKeyDown(Input.KEY_ESCAPE)) {
@@ -43,12 +40,10 @@ public class EntityPlayer extends Entity {
 		if (input.isKeyDown(Input.KEY_RIGHT) || input.isKeyDown(Input.KEY_D)) {
 			getSprite().flip(false);
 			movement.setHorizontalVelocty(playerMoveSpeed);
-			setRot((float) Math.sin((time / 7f)) * 15f);
 		}
 		if (input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_A)) {
 			getSprite().flip(true);
 			movement.setHorizontalVelocty(-playerMoveSpeed);
-			setRot((float) -Math.sin((time / 7f)) * 15f);
 		}
 
 		if (input.isKeyDown(Input.KEY_SPACE) || input.isKeyDown(Input.KEY_W) || input.isKeyDown(Input.KEY_UP)) {
@@ -56,6 +51,12 @@ public class EntityPlayer extends Entity {
 				movement.setVerticalVelocity(jumpSpeed);
 		}
 
+		float rot = movement.getDeltaY() / 1.5f;
+		if (getSprite().isFlipped()) {
+			setRot(-rot);
+		} else {
+			setRot(rot);
+		}
 		setX(movement.getX());
 		setY(movement.getY());
 

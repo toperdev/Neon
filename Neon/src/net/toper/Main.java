@@ -37,7 +37,7 @@ public class Main extends BasicGame {
 	public static void main(String[] args) {
 		try {
 			app = new AppGameContainer(new Main());
-			app.setDisplayMode(1000, (1000 / 16) * 9, false);
+			app.setDisplayMode(1600, (1600 / 16) * 9, false);
 			app.setShowFPS(false);
 			app.start();
 		} catch (SlickException e) {
@@ -87,11 +87,11 @@ public class Main extends BasicGame {
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		logic();
 		render();
-		fps++;
 	}
 
 	private void render() {
 		Game.render();
+		fps++;
 	}
 
 	public static float getDelta() {

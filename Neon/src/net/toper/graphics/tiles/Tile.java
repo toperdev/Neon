@@ -8,7 +8,6 @@ public class Tile {
 
 	private Sprite s;
 	private float scale;
-	private float tileSize;
 	private float x;
 	private float y;
 	private boolean collidable = true;
@@ -22,12 +21,19 @@ public class Tile {
 		s.setX(x * tileSize);
 		s.setY(y * tileSize);
 		this.s = s;
-		this.tileSize = tileSize;
 		bounds = new Rectangle(x * tileSize, y * tileSize, s.getWidth(), s.getHeight());
 	}
 
 	public void draw() {
 		s.draw();
+	}
+
+	public float getX() {
+		return x;
+	}
+
+	public float getY() {
+		return y;
 	}
 
 	public void setOffset(float offX, float offY) {
