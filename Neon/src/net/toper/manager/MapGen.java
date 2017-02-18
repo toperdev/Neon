@@ -26,12 +26,8 @@ public class MapGen {
 					map.addTile(x, y, new WallTile(x, y, mapScale, tileSize));
 				}
 				if (mapSource.getColor(x, y).equals(ButtonTile.mapGenReference)) {
-					map.addTile(x, y, new ButtonTile(x, y, mapScale, tileSize, false));
+					map.addTile(x, y, new ButtonTile(x, y, mapScale, tileSize));
 				}
-				if (mapSource.getColor(x, y).equals(ButtonTile.mapGenReference2)) {
-					map.addTile(x, y, new ButtonTile(x, y, mapScale, tileSize, true));
-				}
-
 			}
 		}
 	}
@@ -39,7 +35,6 @@ public class MapGen {
 	public boolean collisionAt(Rectangle bounds) {
 		return map.isInTile(bounds) == 1;
 	}
-
 	public boolean collisionBetween(Rectangle bounds, Rectangle bounds2) {
 		return map.isInTile(bounds, bounds2);
 	}
