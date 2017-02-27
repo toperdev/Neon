@@ -16,13 +16,11 @@ public class EntityManager {
 	private int score;
 
 	public void init() {
-		// new Background();
 	}
 
 	public void draw() {
 		for (Entity e : entities) {
-			// if (e.getY() > -e.getHeight() && e.getY() < Neon.gc.getHeight())
-			e.draw();
+				e.draw();
 		}
 	}
 

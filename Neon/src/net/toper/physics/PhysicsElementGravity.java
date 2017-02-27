@@ -96,4 +96,9 @@ public class PhysicsElementGravity extends PhysicsElement {
 		gravity *= scale;
 	}
 
+	public void setPos(float x, float y) {
+		this.x = x;
+		this.y = y;
+	}
+
 }

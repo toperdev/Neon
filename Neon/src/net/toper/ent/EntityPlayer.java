@@ -1,5 +1,6 @@
 package net.toper.ent;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Input;
 
 import net.toper.Game;
@@ -10,8 +11,7 @@ import net.toper.physics.PhysicsElementGravity;
 public class EntityPlayer extends Entity {
 
 	public static float origScale = 0.35f;
-	private static float origX = 0;
-	private static float origY = 0f;
+	public static Color mapGenReference = Color.red;
 
 	float playerMoveSpeed = 25f * origScale;
 	float jumpSpeed = 60f * origScale;
@@ -19,8 +19,8 @@ public class EntityPlayer extends Entity {
 	int phys;
 	PhysicsElementGravity movement;
 
-	public EntityPlayer() {
-		super(origX, origY, 10, new Sprite("res/lol.png", origScale));
+	public EntityPlayer(float x, float y) {
+		super(x, y, 10, new Sprite("res/lol.png", origScale));
 		setScale(origScale);
 		setCenter(getWidth() / 2, getHeight());
 		setLinkPosAndScreen(false);
@@ -28,6 +28,7 @@ public class EntityPlayer extends Entity {
 		setScreenY(Main.getHeight() / 2 - getHeight() / 2);
 		phys = Game.p.addElement(new PhysicsElementGravity(this));
 		movement = (PhysicsElementGravity) Game.p.getElement(phys);
+		movement.setPos(x,y);
 	}
 
 	public void update() {

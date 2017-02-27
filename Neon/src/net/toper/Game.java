@@ -61,7 +61,7 @@ public class Game {
 		if (!hasGameStarted) {
 			em.init();
 			p = new Physics();
-			player = new EntityPlayer();
+			player = new EntityPlayer(MapGen.getPlayerSpawnX(), MapGen.getPlayerSpawnY());
 			em.addEntity(player);
 			bg.setX(-300f);
 			bg.setY(-800f);

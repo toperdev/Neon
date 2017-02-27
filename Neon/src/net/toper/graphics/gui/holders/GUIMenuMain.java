@@ -9,8 +9,7 @@ import net.toper.graphics.gui.GameState;
 public class GUIMenuMain extends GUI {
 
 	public GUIMenuMain() {
-		elementIDs.put("title",
-				addElement(new GUIElementText(Main.getWidth() / 2f, 100, "Mario's Autistic Brother", true)));
+		elementIDs.put("title", addElement(new GUIElementText(Main.getWidth() / 2f, 100, "It's Not Mario", true)));
 		elementIDs.put("start", addElement(new GUIElementText(Main.getWidth() / 2f, 200, "Start", true)));
 		elementIDs.put("quit", addElement(new GUIElementText(Main.getWidth() / 2f, 225, "Quit", true)));
 		elementIDs.put("clickStart", addElement(new GUIElementClickable(this, elementIDs.get("start"), true)));

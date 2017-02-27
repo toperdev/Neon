@@ -4,6 +4,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
+import net.toper.ent.EntityPlayer;
 import net.toper.graphics.tiles.ButtonTile;
 import net.toper.graphics.tiles.WallTile;
 
@@ -12,6 +13,7 @@ public class MapGen {
 	private static float mapScale = 1f;
 	private static float tileSize = 64f;
 	private static int mapWidth = 1000;
+	private static int playerSpawnX, playerSpawnY;
 	Image mapSource;
 
 	public MapGen() {
@@ -22,6 +24,10 @@ public class MapGen {
 		}
 		for (int y = 0; y < mapSource.getHeight(); y++) {
 			for (int x = 0; x < mapSource.getWidth(); x++) {
+				if (mapSource.getColor(x, y).equals(EntityPlayer.mapGenReference)) {
+					playerSpawnX = x;
+					playerSpawnY = y;
+				}
 				if (mapSource.getColor(x, y).equals(WallTile.mapGenReference)) {
 					map.addTile(x, y, new WallTile(x, y, mapScale, tileSize));
 				}
@@ -48,4 +54,11 @@ public class MapGen {
 		return mapWidth;
 	}
 
+	public static float getPlayerSpawnX() {
+		return playerSpawnX;
+	}
+
+	public static float getPlayerSpawnY() {
+		return playerSpawnY;
+	}
 }
