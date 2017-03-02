@@ -3,6 +3,8 @@ package net.toper.upgrades;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.toper.ent.Entity;
+
 public class Upgrade {
 
 	public List<Integer> originalValues = new ArrayList<Integer>();
@@ -13,8 +15,15 @@ public class Upgrade {
 	private boolean completed = false;
 	private float changedValue = 0f;
 	private String name;
+
 	private int id;
+	private Entity parent;
+
 	private boolean isInUse = false;
+
+	public Upgrade(Entity parent) {
+		this.parent = parent;
+	}
 
 	/**
 	 * @param newValue
@@ -55,13 +64,17 @@ public class Upgrade {
 			if (life <= 0f) {
 				life = 0f;
 				completed = true;
-				reset();
 			}
 		}
 	}
 
 	public boolean isCompleted() {
-		return completed;
+		boolean complete = completed;
+		if (completed)
+			if (life <= 0f) {
+				reset();
+			}
+		return complete;
 	}
 
 	public float upgradeValue() {
@@ -92,6 +105,14 @@ public class Upgrade {
 
 	public boolean isInUse() {
 		return isInUse;
+	}
+
+	public Entity getParent() {
+		return parent;
+	}
+
+	public int getType() {
+		return 0;
 	}
 
 }

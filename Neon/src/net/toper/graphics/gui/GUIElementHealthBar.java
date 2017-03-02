@@ -1,34 +1,22 @@
 package net.toper.graphics.gui;
 
+import javax.print.attribute.standard.MediaSize.NA;
+
 import org.newdawn.slick.Color;
 
 import net.toper.Game;
+import net.toper.upgrades.Upgrade;
 
 public class GUIElementHealthBar extends GUIElement {
 
 	private float health;
 	private int id, parentID;
 	private int parentType;
-	private float width;
 	private float origHealth;
 	private String name;
 
-	public GUIElementHealthBar(float x, float y, float health, int id, int parentType) {
-		super(x, y, health, 10);
-		this.health = health;
-		this.origHealth = health;
-		this.id = id;
-		this.parentType = parentType;
-	}
-
-	public GUIElementHealthBar(float x, float y, float width, float health, int id, String name, int parentType) {
+	public GUIElementHealthBar(float x, float y, float width) {
 		super(x, y, width, 10);
-		this.health = health;
-		this.origHealth = health;
-		this.id = id;
-		this.parentType = parentType;
-		this.name = name;
-		this.width = width;
 	}
 
 	public void update() {
@@ -52,7 +40,7 @@ public class GUIElementHealthBar extends GUIElement {
 	}
 
 	public void render() {
-		float width = (float) scale(health, 0, origHealth, 0, this.width);
+		float width = (float) scale(health, 0, origHealth, 0, getWidth());
 		Game.r.drawRect(getX(), getY() + 25, width, 10, Color.green);
 		getFont().setSize(15);
 		getFont().drawText(getX(), getY(), name);
@@ -61,5 +49,14 @@ public class GUIElementHealthBar extends GUIElement {
 	public static double scale(final double valueIn, final double baseMin, final double baseMax, final double limitMin,
 			final double limitMax) {
 		return ((limitMax - limitMin) * (valueIn - baseMin) / (baseMax - baseMin)) + limitMin;
+	}
+
+	public void setInfoParent(Upgrade upgrade) {
+		this.name = upgrade.getName();
+		this.health = upgrade.getLife();
+		this.origHealth = health;
+		this.id = upgrade.getID();
+		this.parentType = upgrade.getType();
+		done = false;
 	}
 }

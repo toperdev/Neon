@@ -29,7 +29,7 @@ public class EntityPlayer extends Entity {
 	private PhysicsElementGravity movement;
 
 	public EntityPlayer(float x, float y) {
-		super(x, y, 10, new Sprite("res/lol.png", origScale));
+		super(x, y, 10, new Sprite("res/lol.png", origScale), 1);
 		setScale(origScale);
 		setCenter(getWidth() / 2, getHeight());
 		setLinkPosAndScreen(false);

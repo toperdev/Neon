@@ -7,4 +7,5 @@
 <fullyQualifiedTypeName name="java.awt.List"/>
 <fullyQualifiedTypeName name="net.toper.graphics.gui.GUI"/>
 <fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="org.newdawn.slick.Font"/>
 </qualifiedTypeNameHistroy>

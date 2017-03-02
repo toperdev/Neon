@@ -8,7 +8,7 @@ import org.newdawn.slick.TrueTypeFont;
 public class FontManager {
 
 	private int size = 20;
-	private Color color;
+	private Color color = Color.white;
 	private TrueTypeFont ttf;
 	private Font f;
 

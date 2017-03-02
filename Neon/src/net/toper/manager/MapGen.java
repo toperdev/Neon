@@ -17,6 +17,10 @@ public class MapGen {
 	Image mapSource;
 
 	public MapGen() {
+
+	}
+
+	public void gen() {
 		try {
 			mapSource = new Image("res/mapgen.png");
 		} catch (SlickException e) {

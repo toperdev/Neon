@@ -32,6 +32,7 @@ public class Entity {
 	private float origScale;
 	private float delta;
 	private float damgAmt;
+	private int type;
 
 	private Sprite s;
 	private Sound sound, dieSound;
@@ -41,7 +42,7 @@ public class Entity {
 
 	private List<Upgrade> upgrades = new ArrayList<Upgrade>();
 
-	public Entity(float x, float y, float z, Sprite sprite) {
+	public Entity(float x, float y, float z, Sprite sprite, int type) {
 		this.posX = x;
 		this.posY = y;
 		this.z = z;
@@ -345,8 +346,9 @@ public class Entity {
 			return null;
 	}
 
+	List<Integer> remove = new ArrayList<Integer>();
+
 	public void updateUpgrades() {
-		List<Integer> remove = new ArrayList<Integer>();
 		for (int i = 0; i < upgrades.size(); i++) {
 			upgrades.get(i).update(delta);
 			if (upgrades.get(i).isCompleted()) {
@@ -362,6 +364,10 @@ public class Entity {
 
 	public int getNumUpgrades() {
 		return upgrades.size();
+	}
+
+	public int getType() {
+		return type;
 	}
 
 	public int getID() {

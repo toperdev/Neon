@@ -14,6 +14,7 @@ public class ButtonTile extends Tile {
 	public static Color mapGenReference = new Color(0xff2255AA);
 	public static Color mapGenReference2 = new Color(0xff4E3EA8);
 	private static Sprite s = new Sprite("res/button.png", 1f);
+
 	private float width = 64;
 	private float height = 15;
 	private float scale;
@@ -21,7 +22,7 @@ public class ButtonTile extends Tile {
 	private boolean pushed = false;
 	private boolean stayDown = false;
 
-	UpgradeJump u = new UpgradeJump();
+	private UpgradeJump u = new UpgradeJump(Game.player);
 
 	public ButtonTile(float x, float y, float scale, float tileSize, boolean stayDown) {
 		super(x, y, tileSize, s);
