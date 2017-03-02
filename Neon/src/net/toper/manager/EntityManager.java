@@ -1,11 +1,8 @@
 package net.toper.manager;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-import net.toper.Game;
 import net.toper.Main;
 import net.toper.ent.Entity;
 import net.toper.upgrades.Upgrade;
@@ -44,7 +41,7 @@ public class EntityManager {
 		for (int i = 0; i < size; i++) {
 			Entity e = entities.get(i);
 			e.setDelta(delta);
-			e.updateUpgrades(delta);
+			e.updateUpgrades();
 			e.update();
 			if (e.isDead()) {
 				entities.remove(i);

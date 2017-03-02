@@ -27,7 +27,7 @@ public class GUIOverlayInGame extends GUI {
 
 	public void addUpgradeInfo(Upgrade upgrade) {
 		upgradeDisplay.add(addElement(
-				new GUIElementHealthBar(10, 45, 100f, upgrade.getLife(), upgrade.getID(), upgrade.getName(), 0)));
+				new GUIElementHealthBar(10, 50, 200f, upgrade.getLife(), upgrade.getID(), upgrade.getName(), 0)));
 	}
 
 }

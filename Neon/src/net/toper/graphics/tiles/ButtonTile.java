@@ -4,7 +4,6 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Rectangle;
 
 import net.toper.Game;
-import net.toper.ent.EntityPlayer;
 import net.toper.graphics.Sprite;
 import net.toper.graphics.gui.GUI;
 import net.toper.graphics.gui.holders.GUIOverlayInGame;
@@ -36,7 +35,7 @@ public class ButtonTile extends Tile {
 	}
 
 	public void update() {
-		Rectangle tempBounds = new Rectangle(getBounds().getX(), getBounds().getY() - 3f, getBounds().getWidth(),
+		Rectangle tempBounds = new Rectangle(getBounds().getX(), getBounds().getY() - height, getBounds().getWidth(),
 				getBounds().getHeight());
 		if (Game.gen.collisionBetween(Game.player.getBounds(), tempBounds)) {
 			push();
@@ -49,8 +48,7 @@ public class ButtonTile extends Tile {
 		if (!pushed) {
 			s.crop((int) width, width, 0, width * scale);
 			getBounds().setBounds(getX() * tileSize, (getY() * tileSize) + tileSize - 10, tileSize, 10);
-			if (u.isInUse()) {
-				u.reset();
+			if (!u.isInUse()) {
 				Game.player.addUpgrade(u);
 				((GUIOverlayInGame) GUI.getCurrentMenu()).addUpgradeInfo(u);
 			}

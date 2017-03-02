@@ -1,7 +1,6 @@
 package net.toper.ent;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.newdawn.slick.SlickException;
@@ -41,7 +40,6 @@ public class Entity {
 	private boolean link = true;
 
 	private List<Upgrade> upgrades = new ArrayList<Upgrade>();
-	private int numUpgrades;
 
 	public Entity(float x, float y, float z, Sprite sprite) {
 		this.posX = x;
@@ -347,7 +345,7 @@ public class Entity {
 			return null;
 	}
 
-	public void updateUpgrades(float delta) {
+	public void updateUpgrades() {
 		List<Integer> remove = new ArrayList<Integer>();
 		for (int i = 0; i < upgrades.size(); i++) {
 			upgrades.get(i).update(delta);

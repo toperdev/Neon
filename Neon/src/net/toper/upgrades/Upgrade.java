@@ -55,6 +55,7 @@ public class Upgrade {
 			if (life <= 0f) {
 				life = 0f;
 				completed = true;
+				reset();
 			}
 		}
 	}
@@ -86,6 +87,7 @@ public class Upgrade {
 	public void reset() {
 		completed = false;
 		life = origLife;
+		isInUse = false;
 	}
 
 	public boolean isInUse() {
