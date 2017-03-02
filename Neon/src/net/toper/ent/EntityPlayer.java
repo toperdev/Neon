@@ -7,17 +7,26 @@ import net.toper.Game;
 import net.toper.Main;
 import net.toper.graphics.Sprite;
 import net.toper.physics.PhysicsElementGravity;
+import net.toper.upgrades.UpgradeJump;
 
 public class EntityPlayer extends Entity {
 
+	// Scale and spawn point color initializer
 	public static float origScale = 0.35f;
 	public static Color mapGenReference = Color.red;
 
-	float playerMoveSpeed = 25f * origScale;
-	float jumpSpeed = 60f * origScale;
+	// Initial values, final to ensure they don't get changed through upgrades
+	// or something
+	private final float origPlayerMoveSpeed = 25f * origScale;
+	private final float origJumpSpeed = 60f * origScale;
 
-	int phys;
-	PhysicsElementGravity movement;
+	// Current, modifiable movement speed values
+	private float playerMoveSpeed = origPlayerMoveSpeed;
+	private float jumpSpeed = origJumpSpeed;
+
+	// Physics reference and gravity class
+	private int phys;
+	private PhysicsElementGravity movement;
 
 	public EntityPlayer(float x, float y) {
 		super(x, y, 10, new Sprite("res/lol.png", origScale));
@@ -28,10 +37,11 @@ public class EntityPlayer extends Entity {
 		setScreenY(Main.getHeight() / 2 - getHeight() / 2);
 		phys = Game.p.addElement(new PhysicsElementGravity(this));
 		movement = (PhysicsElementGravity) Game.p.getElement(phys);
-		movement.setPos(x,y);
+		movement.setPos(x, y);
 	}
 
 	public void update() {
+		processUpgrades();
 		Input input = Main.gc.getInput();
 		// Close game when the escape key is hit
 		if (input.isKeyDown(Input.KEY_ESCAPE)) {
@@ -63,6 +73,20 @@ public class EntityPlayer extends Entity {
 
 		Game.gen.map.offset(-getX() + getScreenX(), -getY() + getScreenY());
 		Game.bg.offset((Game.gen.map.getOffsetX() / 2f), (Game.gen.map.getOffsetY() / 2f));
+	}
+
+	public void processUpgrades() {
+		if (getNumUpgrades() == 0) {
+			jumpSpeed = origJumpSpeed;
+			playerMoveSpeed = origPlayerMoveSpeed;
+		} else
+			for (int i = 0; i < getNumUpgrades(); i++) {
+				if (getUpgrade(i) instanceof UpgradeJump) {
+					jumpSpeed = getUpgrade(i).upgradeValue() * getScale();
+				} else {
+					jumpSpeed = origJumpSpeed;
+				}
+			}
 	}
 
 }

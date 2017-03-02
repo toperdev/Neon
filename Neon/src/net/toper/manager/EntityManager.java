@@ -5,8 +5,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import net.toper.Game;
 import net.toper.Main;
 import net.toper.ent.Entity;
+import net.toper.upgrades.Upgrade;
 
 public class EntityManager {
 
@@ -20,7 +22,7 @@ public class EntityManager {
 
 	public void draw() {
 		for (Entity e : entities) {
-				e.draw();
+			e.draw();
 		}
 	}
 
@@ -38,10 +40,11 @@ public class EntityManager {
 		 */
 		// Update entities and remove dead entities from the array. Created this
 		// way just in case something changes in the array while accessing it
-		int size = entities.size();
+		int size = entities.size(); 
 		for (int i = 0; i < size; i++) {
 			Entity e = entities.get(i);
 			e.setDelta(delta);
+			e.updateUpgrades(delta);
 			e.update();
 			if (e.isDead()) {
 				entities.remove(i);
@@ -51,30 +54,21 @@ public class EntityManager {
 		}
 		// Sort the leftover entities by x and y locations, easier to parse
 		// through and check
-		Collections.sort(entities, new Comparator<Entity>() {
-			public int compare(Entity z1, Entity z2) {
-				if (z1.getY() > z2.getY())
-					return -1;
-				if (z1.getY() < z2.getY())
-					return 1;
-				return 0;
-			}
-		});
-		Collections.sort(entities, new Comparator<Entity>() {
-			public int compare(Entity z1, Entity z2) {
-				if (z1.getZ() > z2.getZ())
-					return 1;
-				if (z1.getZ() < z2.getZ())
-					return -1;
-				return 0;
-			}
-		});
+		/*
+		 * Collections.sort(entities, new Comparator<Entity>() { public int
+		 * compare(Entity z1, Entity z2) { if (z1.getY() > z2.getY()) return -1;
+		 * if (z1.getY() < z2.getY()) return 1; return 0; } });
+		 * Collections.sort(entities, new Comparator<Entity>() { public int
+		 * compare(Entity z1, Entity z2) { if (z1.getZ() > z2.getZ()) return 1;
+		 * if (z1.getZ() < z2.getZ()) return -1; return 0; } });
+		 */
 	}
 
 	// Add an entity to the temporary holding array, will be added in the next
 	// logic call
 	public void addEntity(Entity e) {
 		temp.add(e);
+		e.setID(temp.indexOf(e));
 	}
 
 	// Remove entity from the current entity array
@@ -102,6 +96,10 @@ public class EntityManager {
 	// Get the total entities currently in the list
 	public int getNum() {
 		return entities.size();
+	}
+
+	public Upgrade getUpgrade(int id, int parentID) {
+		return getEntity(parentID).getUpgrade(id);
 	}
 
 }

@@ -37,4 +37,12 @@ public class Background {
 				-y - offY + Main.getHeight());
 	}
 
+	public float getOffX() {
+		return offX;
+	}
+
+	public float getOffY() {
+		return offY;
+	}
+
 }

@@ -1,26 +1,27 @@
 package net.toper.graphics;
 
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.TrueTypeFont;
+import java.awt.Font;
 
-import net.toper.Main;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.TrueTypeFont;
 
 public class FontManager {
 
-	private int size;
+	private int size = 20;
 	private Color color;
-	Graphics g;
+	private TrueTypeFont ttf;
+	private Font f;
 
 	public FontManager() {
-		g = Main.gc.getGraphics();
 		color = Color.white;
-
+		f = new Font("Verdana", Font.PLAIN, size);
+		ttf = (new TrueTypeFont(f, true));
 	}
 
 	public void setSize(int size) {
 		if (this.size != size) {
-			g.setFont(new TrueTypeFont(new java.awt.Font("Arial", 0, size), true));
+			f = new Font("Verdana", Font.PLAIN, size);
+			ttf = (new TrueTypeFont(f, true));
 			this.size = size;
 		}
 	}
@@ -30,16 +31,15 @@ public class FontManager {
 	}
 
 	public void drawText(float x, float y, String text) {
-		g.setColor(color);
-		g.drawString(text, x, y);
+		ttf.drawString(x, y, text, color);
 	}
 
 	public float getHeight(String text) {
-		return g.getFont().getHeight(text);
+		return ttf.getHeight(text);
 	}
 
 	public float getWidth(String text) {
-		return g.getFont().getWidth(text);
+		return ttf.getWidth(text);
 	}
 
 }

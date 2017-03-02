@@ -1,13 +1,19 @@
 package net.toper.ent;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.geom.Rectangle;
 
 import net.toper.graphics.Sprite;
+import net.toper.upgrades.Upgrade;
 
 public class Entity {
 
+	private int ID;
 	private float posX;
 	private float posY;
 	private float screenX;
@@ -34,6 +40,9 @@ public class Entity {
 	private boolean removeIfDead = false;
 	private boolean link = true;
 
+	private List<Upgrade> upgrades = new ArrayList<Upgrade>();
+	private int numUpgrades;
+
 	public Entity(float x, float y, float z, Sprite sprite) {
 		this.posX = x;
 		this.posY = y;
@@ -41,6 +50,10 @@ public class Entity {
 		setSprite(sprite);
 		scale = s.getScale();
 		origScale = scale;
+	}
+
+	public void setID(int id) {
+		this.ID = id;
 	}
 
 	public void setLinkPosAndScreen(boolean link) {
@@ -319,5 +332,41 @@ public class Entity {
 
 	public Rectangle getBounds() {
 		return new Rectangle(getX(), getY(), s.getWidth(), s.getHeight());
+	}
+
+	public int addUpgrade(Upgrade u) {
+		upgrades.add(u);
+		u.setID(upgrades.indexOf(u));
+		return u.getID();
+	}
+
+	public Upgrade getUpgrade(int upgrade) {
+		if (upgrade < upgrades.size())
+			return upgrades.get(upgrade);
+		else
+			return null;
+	}
+
+	public void updateUpgrades(float delta) {
+		List<Integer> remove = new ArrayList<Integer>();
+		for (int i = 0; i < upgrades.size(); i++) {
+			upgrades.get(i).update(delta);
+			if (upgrades.get(i).isCompleted()) {
+				remove.add(i);
+			}
+		}
+		for (int i : remove) {
+			if (i < upgrades.size())
+				upgrades.remove(i);
+		}
+		remove.clear();
+	}
+
+	public int getNumUpgrades() {
+		return upgrades.size();
+	}
+
+	public int getID() {
+		return ID;
 	}
 }

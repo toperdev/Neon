@@ -15,6 +15,7 @@ public class GUIElement {
 	private float height;
 	protected Color c;
 	private FontManager f;
+	protected boolean done = false;
 
 	public GUIElement(float x, float y, float width, float height) {
 		this.x = x;
@@ -76,7 +77,11 @@ public class GUIElement {
 	}
 
 	public void setColor(Color c) {
-		
+
+	}
+
+	public boolean isDone() {
+		return done;
 	}
 
 }

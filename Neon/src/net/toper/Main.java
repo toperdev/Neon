@@ -37,7 +37,7 @@ public class Main extends BasicGame {
 	public static void main(String[] args) {
 		try {
 			app = new AppGameContainer(new Main());
-			app.setDisplayMode(1600, (1600 / 16) * 9, false);
+			app.setDisplayMode(1000, (1000 / 16) * 9, false);
 			app.setShowFPS(false);
 			app.start();
 		} catch (SlickException e) {
@@ -47,6 +47,7 @@ public class Main extends BasicGame {
 
 	public void init(GameContainer container) throws SlickException {
 		gc = container;
+		g = gc.getGraphics();
 		i.setInput(gc.getInput());
 		input = gc.getInput();
 		Game.init();

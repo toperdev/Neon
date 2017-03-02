@@ -22,23 +22,13 @@ public class GUI {
 	private static GUIOverlayInGame game = new GUIOverlayInGame();
 
 	public static void update() {
-		GUI current = null;
-		switch (state) {
-		case MAIN:
-			current = main;
-			break;
-		case LOST:
-			current = lost;
-			break;
-		case PLAYING:
-			current = game;
-			break;
-		default:
-			break;
-		}
+		GUI current = getCurrentMenu();
 		current.updateMenu();
 		for (int i = 0; i < current.elements.size(); i++) {
 			current.elements.get(i).update();
+			if (current.elements.get(i).done) {
+				current.elements.remove(i);
+			}
 		}
 	}
 
@@ -63,7 +53,7 @@ public class GUI {
 		elements.clear();
 	}
 
-	public void remove(int index) {
+	public void removeElement(int index) {
 		elements.remove(index);
 	}
 
@@ -101,5 +91,23 @@ public class GUI {
 		} else {
 			return null;
 		}
+	}
+
+	public static GUI getCurrentMenu() {
+		GUI current = null;
+		switch (state) {
+		case MAIN:
+			current = main;
+			break;
+		case LOST:
+			current = lost;
+			break;
+		case PLAYING:
+			current = game;
+			break;
+		default:
+			break;
+		}
+		return current;
 	}
 }

@@ -1,0 +1,13 @@
+package net.toper.upgrades;
+
+public class UpgradeJump extends Upgrade {
+
+	// Just put new traits that the upgrade has here
+	public UpgradeJump() {
+		setLife(100f);
+		setDecay(0.5f);
+		setNewValue(150f);
+		setName("Jump");
+	}
+
+}
