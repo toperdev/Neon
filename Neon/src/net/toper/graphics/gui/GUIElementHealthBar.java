@@ -1,7 +1,5 @@
 package net.toper.graphics.gui;
 
-import javax.print.attribute.standard.MediaSize.NA;
-
 import org.newdawn.slick.Color;
 
 import net.toper.Game;

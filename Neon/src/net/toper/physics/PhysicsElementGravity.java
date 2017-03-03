@@ -27,7 +27,7 @@ public class PhysicsElementGravity extends PhysicsElement {
 	public PhysicsElementGravity(Entity e) {
 		x = e.getX();
 		y = e.getY();
-		bounds = e.getBounds();
+		bounds = e.getHitbox();
 		gravity *= e.getScale();
 	}
 

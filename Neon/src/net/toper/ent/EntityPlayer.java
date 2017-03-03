@@ -12,13 +12,15 @@ import net.toper.upgrades.UpgradeJump;
 public class EntityPlayer extends Entity {
 
 	// Scale and spawn point color initializer
-	public static float origScale = 0.35f;
+	public static float origScale = 0.6f;
+	private int animWidth = 128;
+	private float animStep;
 	public static Color mapGenReference = Color.red;
 
 	// Initial values, final to ensure they don't get changed through upgrades
 	// or something
-	private final float origPlayerMoveSpeed = 25f * origScale;
-	private final float origJumpSpeed = 60f * origScale;
+	private final float origPlayerMoveSpeed = 20f * origScale;
+	private final float origJumpSpeed = 45f * origScale;
 
 	// Current, modifiable movement speed values
 	private float playerMoveSpeed = origPlayerMoveSpeed;
@@ -29,9 +31,11 @@ public class EntityPlayer extends Entity {
 	private PhysicsElementGravity movement;
 
 	public EntityPlayer(float x, float y) {
-		super(x, y, 10, new Sprite("res/lol.png", origScale), 1);
+		super(x, y, 10, new Sprite("res/character animation.png", origScale), 1);
 		setScale(origScale);
-		setCenter(getWidth() / 2, getHeight());
+		getSprite().crop(0, animWidth, 0, getHeight());
+		setWidth(animWidth);
+		setHitBoxWidth(64);
 		setLinkPosAndScreen(false);
 		setScreenX(Main.getWidth() / 2 - getWidth() / 2);
 		setScreenY(Main.getHeight() / 2 - getHeight() / 2);
@@ -62,14 +66,15 @@ public class EntityPlayer extends Entity {
 				movement.setVerticalVelocity(jumpSpeed);
 		}
 
-		float rot = movement.getDeltaY() / 1.5f;
-		if (getSprite().isFlipped()) {
-			setRot(-rot);
-		} else {
-			setRot(rot);
-		}
+		if (movement.getDeltaX() != 0)
+			animStep += 0.25f * getDelta();
+
 		setX(movement.getX());
 		setY(movement.getY());
+
+		animStep %= getSprite().getOrigWidth() / animWidth;
+		int step = (int) animStep;
+		getSprite().crop((int) ((step * animWidth)), animWidth, 0, getSprite().getOrigHeight());
 
 		Game.gen.map.offset(-getX() + getScreenX(), -getY() + getScreenY());
 		Game.bg.offset((Game.gen.map.getOffsetX() / 2f), (Game.gen.map.getOffsetY() / 2f));

@@ -9,7 +9,7 @@ public class UpgradeJump extends Upgrade {
 		super(parent);
 		setLife(100f);
 		setDecay(0.5f);
-		setNewValue(150f);
+		setNewValue(80f);
 		setName("Jump");
 	}
 

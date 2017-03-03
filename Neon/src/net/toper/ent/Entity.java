@@ -31,7 +31,11 @@ public class Entity {
 	private float speed;
 	private float origScale;
 	private float delta;
+	private float width;
+	private float height;
 	private float damgAmt;
+	private float hitBoxWidth;
+	private float hitBoxHeight;
 	private int type;
 
 	private Sprite s;
@@ -49,6 +53,11 @@ public class Entity {
 		setSprite(sprite);
 		scale = s.getScale();
 		origScale = scale;
+		this.width = sprite.getWidth();
+		this.height = sprite.getHeight();
+		this.hitBoxHeight = height;
+		this.hitBoxWidth = width;
+
 	}
 
 	public void setID(int id) {
@@ -290,11 +299,27 @@ public class Entity {
 	}
 
 	public float getWidth() {
-		return s.getWidth();
+		return width;
+	}
+
+	public void setWidth(float width) {
+		this.width = width;
+	}
+
+	public void setHitBoxWidth(float width) {
+		this.hitBoxWidth = width;
 	}
 
 	public float getHeight() {
-		return s.getHeight();
+		return height;
+	}
+
+	public void setHeight(float height) {
+		this.height = height;
+	}
+
+	public void setHitBoxHeight(float height) {
+		this.hitBoxHeight = height;
 	}
 
 	public void setCenter(float x, float y) {
@@ -330,7 +355,12 @@ public class Entity {
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle(getX(), getY(), s.getWidth(), s.getHeight());
+		return new Rectangle(getX(), getY(), getWidth(), getHeight());
+	}
+
+	public Rectangle getHitbox() {
+		return new Rectangle(getCenterX(), getCenterY(), hitBoxWidth,
+				hitBoxHeight);
 	}
 
 	public int addUpgrade(Upgrade u) {
