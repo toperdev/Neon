@@ -17,10 +17,10 @@ public class Tile {
 	public Tile(float x, float y, float tileSize, Sprite s) {
 		this.x = x;
 		this.y = y;
-		s.scale(tileSize / s.getWidth());
-		s.setX(x * tileSize);
-		s.setY(y * tileSize);
 		this.s = s;
+		this.s.scale(tileSize / s.getWidth());
+		this.s.setX(x * tileSize);
+		this.s.setY(y * tileSize);
 		bounds = new Rectangle(x * tileSize, y * tileSize, s.getWidth(), s.getHeight());
 	}
 
@@ -75,6 +75,14 @@ public class Tile {
 
 	public void needsUpdate(boolean needsUpdate) {
 		this.needsUpdate = needsUpdate;
+	}
+
+	public void setScale(float scale) {
+		this.scale = scale;
+	}
+	
+	public Sprite getSprite(){
+		return s;
 	}
 
 }

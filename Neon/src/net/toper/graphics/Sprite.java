@@ -73,7 +73,8 @@ public class Sprite {
 		if (!flipped)
 			r.drawImage(tex, x + offX, y + offY, scale);
 		else {
-			r.drawImage(tex.getFlippedCopy(true, false), x + offX, y + offY, scale);
+			r.drawImage(tex.getFlippedCopy(true, false), x + offX,
+					y + offY, scale);
 		}
 	}
 

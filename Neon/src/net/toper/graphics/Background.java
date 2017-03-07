@@ -1,30 +1,26 @@
 package net.toper.graphics;
 
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Color;
 
+import net.toper.Game;
 import net.toper.Main;
+import net.toper.ent.EffectStar;
+import net.toper.manager.MapGen;
 
 public class Background {
 
-	private float x, y, offX, offY;
-	private Image bg;
+	private float offX;
+	private float offY;
+	private int maxDepth = 10;
+	private int numStars = 1000;
 
 	public Background() {
-		try {
-			bg = new Image("res/bg.png");
-			bg = bg.getScaledCopy(3);
-		} catch (SlickException e) {
-			e.printStackTrace();
+		for (int i = 0; i < numStars; i++) {
+			int x = Game.rand.nextInt(MapGen.getWidth());
+			int y = Game.rand.nextInt(MapGen.getWidth());
+			int z = Game.rand.nextInt(maxDepth) + 1;
+			Game.fx.addEffect(new EffectStar(x, y, -z));
 		}
-	}
-
-	public void setX(float x) {
-		this.x = x;
-	}
-
-	public void setY(float y) {
-		this.y = y;
 	}
 
 	public void offset(float x, float y) {
@@ -33,8 +29,11 @@ public class Background {
 	}
 
 	public void draw() {
-		bg.draw(0, 0, Main.getWidth(), Main.getHeight(), -x - offX, -y - offY, -x - offX + Main.getWidth(),
-				-y - offY + Main.getHeight());
+		Main.g.setBackground(new Color(0xff001025));
+		/*
+		 * bg.draw(0, 0, Main.getWidth(), Main.getHeight(), -x - offX, -y -
+		 * offY, -x - offX + Main.getWidth(), -y - offY + Main.getHeight());
+		 */
 	}
 
 	public float getOffX() {

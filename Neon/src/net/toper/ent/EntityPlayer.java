@@ -7,20 +7,21 @@ import net.toper.Game;
 import net.toper.Main;
 import net.toper.graphics.Sprite;
 import net.toper.physics.PhysicsElementGravity;
-import net.toper.upgrades.UpgradeJump;
+import net.toper.upgrades.UpgradeLowGravity;
 
 public class EntityPlayer extends Entity {
 
 	// Scale and spawn point color initializer
 	public static float origScale = 0.6f;
 	private int animWidth = 128;
+	private int hitWidth = 64;
 	private float animStep;
 	public static Color mapGenReference = Color.red;
 
 	// Initial values, final to ensure they don't get changed through upgrades
 	// or something
 	private final float origPlayerMoveSpeed = 20f * origScale;
-	private final float origJumpSpeed = 45f * origScale;
+	private final float origJumpSpeed = 55f * origScale;
 
 	// Current, modifiable movement speed values
 	private float playerMoveSpeed = origPlayerMoveSpeed;
@@ -35,10 +36,10 @@ public class EntityPlayer extends Entity {
 		setScale(origScale);
 		getSprite().crop(0, animWidth, 0, getHeight());
 		setWidth(animWidth);
-		setHitBoxWidth(64);
+		setHitBoxWidth(hitWidth);
 		setLinkPosAndScreen(false);
-		setScreenX(Main.getWidth() / 2 - getWidth() / 2);
-		setScreenY(Main.getHeight() / 2 - getHeight() / 2);
+		setScreenX(Main.getWidth() / 2 - getCenterX());
+		setScreenY(Main.getHeight() / 2 - getCenterY());
 		phys = Game.p.addElement(new PhysicsElementGravity(this));
 		movement = (PhysicsElementGravity) Game.p.getElement(phys);
 		movement.setPos(x, y);
@@ -67,7 +68,7 @@ public class EntityPlayer extends Entity {
 		}
 
 		if (movement.getDeltaX() != 0)
-			animStep += 0.25f * getDelta();
+			animStep += 0.35f * getDelta();
 
 		setX(movement.getX());
 		setY(movement.getY());
@@ -86,7 +87,7 @@ public class EntityPlayer extends Entity {
 			playerMoveSpeed = origPlayerMoveSpeed;
 		} else
 			for (int i = 0; i < getNumUpgrades(); i++) {
-				if (getUpgrade(i) instanceof UpgradeJump) {
+				if (getUpgrade(i) instanceof UpgradeLowGravity) {
 					jumpSpeed = getUpgrade(i).upgradeValue() * getScale();
 				} else {
 					jumpSpeed = origJumpSpeed;

@@ -7,13 +7,13 @@ import net.toper.Game;
 import net.toper.graphics.Sprite;
 import net.toper.graphics.gui.GUI;
 import net.toper.graphics.gui.holders.GUIOverlayInGame;
-import net.toper.upgrades.UpgradeJump;
+import net.toper.upgrades.Upgrade;
+import net.toper.upgrades.UpgradeLowGravity;
 
 public class ButtonTile extends Tile {
 
 	public static Color mapGenReference = new Color(0xff2255AA);
 	public static Color mapGenReference2 = new Color(0xff4E3EA8);
-	private static Sprite s = new Sprite("res/button.png", 1f);
 
 	private float width = 64;
 	private float height = 15;
@@ -22,17 +22,22 @@ public class ButtonTile extends Tile {
 	private boolean pushed = false;
 	private boolean stayDown = false;
 
-	private UpgradeJump u = new UpgradeJump(Game.player);
+	private Upgrade u;
 
-	public ButtonTile(float x, float y, float scale, float tileSize, boolean stayDown) {
-		super(x, y, tileSize, s);
+	public ButtonTile(float x, float y, float scale, float tileSize, boolean stayDown, int type) {
+		super(x, y, tileSize, new Sprite("res/button.png", scale));
 		this.tileSize = tileSize;
 		this.scale = scale;
 		this.stayDown = stayDown;
-		s.scale(scale);
-		s.crop(0, width * scale, 0, width * scale);
+		getSprite().scale(scale);
+		getSprite().crop(0, width * scale, 0, width * scale);
 		getBounds().setBounds(x * tileSize, (y * tileSize) + tileSize - height, tileSize, height);
 		needsUpdate(true);
+		switch (type) {
+		case 0:
+			u = new UpgradeLowGravity(Game.player);
+			break;
+		}
 	}
 
 	public void update() {
@@ -47,7 +52,7 @@ public class ButtonTile extends Tile {
 
 	public void push() {
 		if (!pushed) {
-			s.crop((int) width, width, 0, width * scale);
+			getSprite().crop((int) width, width, 0, width * scale);
 			getBounds().setBounds(getX() * tileSize, (getY() * tileSize) + tileSize - 10, tileSize, 10);
 			if (!u.isInUse()) {
 				Game.player.addUpgrade(u);
@@ -63,7 +68,7 @@ public class ButtonTile extends Tile {
 
 	public void unpush() {
 		if (pushed && !stayDown) {
-			s.crop(0, width * scale, 0, width * scale);
+			getSprite().crop(0, width * scale, 0, width * scale);
 			pushed = false;
 			getBounds().setBounds(getX() * tileSize, (getY() * tileSize) + tileSize - 15, tileSize, 15);
 		}

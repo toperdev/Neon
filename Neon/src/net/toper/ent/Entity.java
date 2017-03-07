@@ -60,6 +60,17 @@ public class Entity {
 
 	}
 
+	public Entity(float x, float y, float z, float width, float height, int type) {
+		this.posX = x;
+		this.posY = y;
+		this.z = z;
+		origScale = scale;
+		this.width = width;
+		this.height = height;
+		this.hitBoxHeight = height;
+		this.hitBoxWidth = width;
+	}
+
 	public void setID(int id) {
 		this.ID = id;
 	}
@@ -359,7 +370,7 @@ public class Entity {
 	}
 
 	public Rectangle getHitbox() {
-		return new Rectangle(getCenterX(), getCenterY(), hitBoxWidth,
+		return new Rectangle(getX() + (getWidth() / 2) - hitBoxWidth / 2, getCenterY() - hitBoxHeight / 2, hitBoxWidth,
 				hitBoxHeight);
 	}
 

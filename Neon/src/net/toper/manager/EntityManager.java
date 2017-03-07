@@ -37,7 +37,7 @@ public class EntityManager {
 		 */
 		// Update entities and remove dead entities from the array. Created this
 		// way just in case something changes in the array while accessing it
-		int size = entities.size(); 
+		int size = entities.size();
 		for (int i = 0; i < size; i++) {
 			Entity e = entities.get(i);
 			e.setDelta(delta);
@@ -59,6 +59,7 @@ public class EntityManager {
 		 * compare(Entity z1, Entity z2) { if (z1.getZ() > z2.getZ()) return 1;
 		 * if (z1.getZ() < z2.getZ()) return -1; return 0; } });
 		 */
+
 	}
 
 	// Add an entity to the temporary holding array, will be added in the next

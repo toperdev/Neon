@@ -12,20 +12,19 @@ public class MapGen {
 	public Map map = new Map();
 	private static float mapScale = 1f;
 	private static float tileSize = 64f;
-	private static int mapWidth = 1000;
+	private static int mapWidth = 4000;
 	private static int playerSpawnX, playerSpawnY;
 	Image mapSource;
 
 	public MapGen() {
-
-	}
-
-	public void gen() {
 		try {
 			mapSource = new Image("res/mapgen.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void gen() {
 		for (int y = 0; y < mapSource.getHeight(); y++) {
 			for (int x = 0; x < mapSource.getWidth(); x++) {
 				if (mapSource.getColor(x, y).equals(EntityPlayer.mapGenReference)) {
@@ -36,7 +35,7 @@ public class MapGen {
 					map.addTile(x, y, new WallTile(x, y, mapScale, tileSize));
 				}
 				if (mapSource.getColor(x, y).equals(ButtonTile.mapGenReference)) {
-					map.addTile(x, y, new ButtonTile(x, y, mapScale, tileSize, false));
+					map.addTile(x, y, new ButtonTile(x, y, mapScale, tileSize, false, 0));
 				}
 			}
 		}

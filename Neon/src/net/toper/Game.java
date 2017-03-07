@@ -1,11 +1,14 @@
 package net.toper;
 
+import java.util.Random;
+
 import net.toper.ent.Entity;
 import net.toper.ent.EntityPlayer;
 import net.toper.graphics.Background;
 import net.toper.graphics.Render;
 import net.toper.graphics.gui.GUI;
 import net.toper.graphics.gui.GameState;
+import net.toper.manager.EffectsManager;
 import net.toper.manager.EntityManager;
 import net.toper.manager.MapGen;
 import net.toper.physics.Physics;
@@ -16,7 +19,9 @@ public class Game {
 	public static EntityPlayer player;
 	public static Render r = new Render();
 	public static MapGen gen = new MapGen();
-	public static Background bg = new Background();
+	public static Background bg;
+	public static Random rand = new Random();
+	public static EffectsManager fx = new EffectsManager();
 
 	public static Physics p;
 	private static Thread physicsThread;
@@ -35,6 +40,7 @@ public class Game {
 		case PLAYING:
 			initGame();
 			em.update();
+			fx.update();
 			gen.map.update();
 			break;
 		default:
@@ -64,8 +70,7 @@ public class Game {
 			gen.gen();
 			em.init();
 			em.addEntity(player);
-			bg.setX(-300f);
-			bg.setY(-800f);
+			bg = new Background();
 			physicsThread = new Thread(p);
 			physicsThread.start();
 			hasGameStarted = true;
@@ -76,8 +81,10 @@ public class Game {
 		switch (GUI.getState()) {
 		case PLAYING:
 			bg.draw();
+			fx.render(0);
 			gen.map.draw();
 			em.draw();
+			fx.render(1);
 			break;
 		case PAUSE:
 			break;
