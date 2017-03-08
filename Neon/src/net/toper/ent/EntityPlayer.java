@@ -1,5 +1,7 @@
 package net.toper.ent;
 
+import java.util.HashMap;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Input;
 
@@ -8,6 +10,7 @@ import net.toper.Main;
 import net.toper.graphics.Sprite;
 import net.toper.physics.PhysicsElementGravity;
 import net.toper.upgrades.UpgradeLowGravity;
+import net.toper.upgrades.UpgradeRunSpeed;
 
 public class EntityPlayer extends Entity {
 
@@ -22,10 +25,9 @@ public class EntityPlayer extends Entity {
 	// or something
 	private final float origPlayerMoveSpeed = 20f * origScale;
 	private final float origJumpSpeed = 55f * origScale;
+	private final float origPlayerAnimSpeed = 0.34f * origScale;
 
-	// Current, modifiable movement speed values
-	private float playerMoveSpeed = origPlayerMoveSpeed;
-	private float jumpSpeed = origJumpSpeed;
+	private HashMap<String, Float> movementValues = new HashMap<String, Float>();
 
 	// Physics reference and gravity class
 	private int phys;
@@ -43,6 +45,10 @@ public class EntityPlayer extends Entity {
 		phys = Game.p.addElement(new PhysicsElementGravity(this));
 		movement = (PhysicsElementGravity) Game.p.getElement(phys);
 		movement.setPos(x, y);
+
+		movementValues.put("jump", origJumpSpeed);
+		movementValues.put("move", origPlayerMoveSpeed);
+		movementValues.put("anim", origPlayerAnimSpeed);
 	}
 
 	public void update() {
@@ -52,29 +58,29 @@ public class EntityPlayer extends Entity {
 		if (input.isKeyDown(Input.KEY_ESCAPE)) {
 			Main.close();
 		}
-		setRot(0);
 		if (input.isKeyDown(Input.KEY_RIGHT) || input.isKeyDown(Input.KEY_D)) {
 			getSprite().flip(false);
-			movement.setHorizontalVelocty(playerMoveSpeed);
+			movement.setHorizontalVelocty(movementValues.get("move"));
 		}
 		if (input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_A)) {
 			getSprite().flip(true);
-			movement.setHorizontalVelocty(-playerMoveSpeed);
+			movement.setHorizontalVelocty(-movementValues.get("move"));
 		}
 
 		if (input.isKeyDown(Input.KEY_SPACE) || input.isKeyDown(Input.KEY_W) || input.isKeyDown(Input.KEY_UP)) {
 			if (movement.isOnGround())
-				movement.setVerticalVelocity(jumpSpeed);
+				movement.setVerticalVelocity(movementValues.get("jump"));
 		}
-
-		if (movement.getDeltaX() != 0)
-			animStep += 0.35f * getDelta();
 
 		setX(movement.getX());
 		setY(movement.getY());
 
-		animStep %= getSprite().getOrigWidth() / animWidth;
+		if (movement.getDeltaX() != 0)
+			animStep += (movementValues.get("move") / 35f) * getDelta();
+
 		int step = (int) animStep;
+		step %= getSprite().getOrigWidth() / animWidth;
+		animStep %= getSprite().getOrigWidth();
 		getSprite().crop((int) ((step * animWidth)), animWidth, 0, getSprite().getOrigHeight());
 
 		Game.gen.map.offset(-getX() + getScreenX(), -getY() + getScreenY());
@@ -82,17 +88,17 @@ public class EntityPlayer extends Entity {
 	}
 
 	public void processUpgrades() {
-		if (getNumUpgrades() == 0) {
-			jumpSpeed = origJumpSpeed;
-			playerMoveSpeed = origPlayerMoveSpeed;
-		} else
-			for (int i = 0; i < getNumUpgrades(); i++) {
-				if (getUpgrade(i) instanceof UpgradeLowGravity) {
-					jumpSpeed = getUpgrade(i).upgradeValue() * getScale();
-				} else {
-					jumpSpeed = origJumpSpeed;
-				}
+		movementValues.put("jump", origJumpSpeed);
+		movementValues.put("move", origPlayerMoveSpeed);
+		for (int i = 0; i < getNumUpgrades(); i++) {
+			if (getUpgrade(i) instanceof UpgradeLowGravity) {
+				getUpgrade(i).setValues(movementValues);
 			}
+			if (getUpgrade(i) instanceof UpgradeRunSpeed) {
+				getUpgrade(i).setValues(movementValues);
+			}
+		}
+
 	}
 
 }

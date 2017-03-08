@@ -17,7 +17,7 @@ public class Background {
 	public Background() {
 		for (int i = 0; i < numStars; i++) {
 			int x = Game.rand.nextInt(MapGen.getWidth());
-			int y = Game.rand.nextInt(MapGen.getWidth());
+			int y = Game.rand.nextInt(MapGen.getHeight());
 			int z = Game.rand.nextInt(maxDepth) + 1;
 			Game.fx.addEffect(new EffectStar(x, y, -z));
 		}

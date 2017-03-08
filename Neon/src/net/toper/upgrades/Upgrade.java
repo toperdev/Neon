@@ -1,19 +1,16 @@
 package net.toper.upgrades;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 import net.toper.ent.Entity;
 
 public class Upgrade {
 
-	public List<Integer> originalValues = new ArrayList<Integer>();
-	public List<Integer> newValues = new ArrayList<Integer>();
+	public HashMap<String, Float> newValues = new HashMap<String, Float>();
 	private float life = 1f;
 	private float origLife;
 	private float lifeDecay = 1f;
 	private boolean completed = false;
-	private float changedValue = 0f;
 	private String name;
 
 	private int id;
@@ -29,8 +26,8 @@ public class Upgrade {
 	 * @param newValue
 	 *            - The new value that the upgrade will have
 	 */
-	public void setNewValue(float newValue) {
-		changedValue = newValue;
+	public void setNewValue(String name, float newValue) {
+		newValues.put(name, newValue);
 	}
 
 	/**
@@ -77,10 +74,6 @@ public class Upgrade {
 		return complete;
 	}
 
-	public float upgradeValue() {
-		return changedValue;
-	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -113,6 +106,12 @@ public class Upgrade {
 
 	public int getType() {
 		return 0;
+	}
+
+	public void setValues(HashMap<String, Float> values) {
+		for (String key : newValues.keySet()) {
+			values.put(key, values.get(key) + newValues.get(key));
+		}
 	}
 
 }

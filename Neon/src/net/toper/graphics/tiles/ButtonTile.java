@@ -9,11 +9,12 @@ import net.toper.graphics.gui.GUI;
 import net.toper.graphics.gui.holders.GUIOverlayInGame;
 import net.toper.upgrades.Upgrade;
 import net.toper.upgrades.UpgradeLowGravity;
+import net.toper.upgrades.UpgradeRunSpeed;
 
 public class ButtonTile extends Tile {
 
 	public static Color mapGenReference = new Color(0xff2255AA);
-	public static Color mapGenReference2 = new Color(0xff4E3EA8);
+	public static Color mapGenReference2 = new Color(0xff2255B6);
 
 	private float width = 64;
 	private float height = 15;
@@ -36,6 +37,9 @@ public class ButtonTile extends Tile {
 		switch (type) {
 		case 0:
 			u = new UpgradeLowGravity(Game.player);
+			break;
+		case 1:
+			u = new UpgradeRunSpeed(Game.player);
 			break;
 		}
 	}

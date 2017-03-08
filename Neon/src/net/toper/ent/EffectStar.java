@@ -8,7 +8,7 @@ import net.toper.fx.Effect;
 public class EffectStar extends Effect {
 
 	private float width;
-	private float maxWidth = 5f;
+	private float maxWidth = 8f;
 	private float minWidth = 1f;
 	private float time;
 
@@ -20,6 +20,7 @@ public class EffectStar extends Effect {
 	public void updateLogic() {
 		time += 0.005f * getDelta();
 		width = minWidth + ((float) Math.sin(Math.toRadians(time * 360f)) * maxWidth);
+		width /= getZ();
 		time %= 1f;
 	}
 
