@@ -7,11 +7,9 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-import net.toper.manager.InputManager;
-
 public class Main extends BasicGame {
 
-	public static InputManager i = new InputManager();
+	public static ManangerInput i = new ManangerInput();
 	public static GameContainer gc;
 	public static Graphics g;
 	public static Input input;

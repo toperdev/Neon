@@ -2,7 +2,6 @@ INDEX VERSION 1.129+C:\Users\jam.toper.AERO-440-6WDR\Documents\GitHub\Neon\.meta
 3878457715.index
 3172068124.index
 1847969816.index
-1182386213.index
 1750264832.index
 3119455041.index
 2312443017.index

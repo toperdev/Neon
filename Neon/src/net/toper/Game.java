@@ -2,26 +2,15 @@ package net.toper;
 
 import java.util.Random;
 
-import net.toper.ent.Entity;
-import net.toper.ent.EntityPlayer;
-import net.toper.graphics.Background;
-import net.toper.graphics.Render;
-import net.toper.graphics.gui.GUI;
-import net.toper.graphics.gui.GameState;
-import net.toper.manager.EffectsManager;
-import net.toper.manager.EntityManager;
-import net.toper.manager.MapGen;
-import net.toper.physics.Physics;
-
 public class Game {
 
-	public static EntityManager em = new EntityManager();
+	public static ManagerEntity em = new ManagerEntity();
 	public static EntityPlayer player;
 	public static Render r = new Render();
 	public static MapGen gen = new MapGen();
 	public static Background bg;
 	public static Random rand = new Random();
-	public static EffectsManager fx = new EffectsManager();
+	public static ManagerEffects fx = new ManagerEffects();
 
 	public static Physics p;
 	private static Thread physicsThread;
