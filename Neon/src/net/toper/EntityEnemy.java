@@ -2,8 +2,8 @@ package net.toper;
 
 public class EntityEnemy extends Entity {
 
-	public EntityEnemy(float x, float y, float z, Sprite sprite) {
-		super(x, y, z, sprite, 0);
+	public EntityEnemy(float x, float y) {
+		super(x, y, 0, new Sprite("res/enemy.png", 1f), 0);
 	}
 
 }

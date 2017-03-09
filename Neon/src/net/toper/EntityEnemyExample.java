@@ -7,14 +7,14 @@ public class EntityEnemyExample extends EntityEnemy {
 	// Initialization of enemy, sets position, size, sprite, how much damage it
 	// does, life amount, and other stuffs
 	public EntityEnemyExample(float x, float y) {
-		super(x, y, 0, null);
+		super(x, y);
 		setScale(origScale);
 		setLife(100f);
 		setDamageAmt(2f);
 		// setDieSound("res/die.ogg");
 	}
 
-	// Movement stuff and logic, updates 60 times a second.
+	// Movement stuff and logic
 	public void update() {
 		if (isDead()) {
 			// do some animation or something

@@ -6,14 +6,14 @@ public class Background {
 
 	private float offX;
 	private float offY;
-	private int maxDepth = 10;
-	private int numStars = 1000;
+	private int maxDepth = 5;
+	private int numStars = 3000;
 
 	public Background() {
 		for (int i = 0; i < numStars; i++) {
 			int x = Game.rand.nextInt(MapGen.getWidth());
 			int y = Game.rand.nextInt(MapGen.getHeight());
-			int z = Game.rand.nextInt(maxDepth) + 1;
+			float z = (Game.rand.nextFloat() * maxDepth) + 1f;
 			Game.fx.addEffect(new EffectStar(x, y, -z));
 		}
 	}
@@ -25,10 +25,6 @@ public class Background {
 
 	public void draw() {
 		Main.g.setBackground(new Color(0xff001025));
-		/*
-		 * bg.draw(0, 0, Main.getWidth(), Main.getHeight(), -x - offX, -y -
-		 * offY, -x - offX + Main.getWidth(), -y - offY + Main.getHeight());
-		 */
 	}
 
 	public float getOffX() {

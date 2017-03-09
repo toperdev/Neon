@@ -5,7 +5,7 @@ import org.newdawn.slick.Color;
 public class EffectStar extends Effect {
 
 	private float width;
-	private float maxWidth = 8f;
+	private float maxWidth = 3f;
 	private float minWidth = 1f;
 	private float time;
 
