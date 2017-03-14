@@ -36,7 +36,7 @@ public class GUIElementHealthBar extends GUIElement {
 
 	public void render() {
 		float width = (float) scale(health, 0, origHealth, 0, getWidth());
-		Game.r.drawRect(getX(), getY() + 25, width, 10, Color.green);
+		Game.r.fillRect(getX(), getY() + 25, width, 10, Color.green);
 		getFont().setSize(15);
 		getFont().drawText(getX(), getY(), name);
 	}

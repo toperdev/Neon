@@ -7,7 +7,6 @@ public class ManagerEntity {
 
 	private List<Entity> entities = new ArrayList<Entity>();
 	private List<Entity> temp = new ArrayList<Entity>();
-	private List<Entity> remove = new ArrayList<Entity>();
 	private int score;
 
 	public void init() {
@@ -37,7 +36,6 @@ public class ManagerEntity {
 		for (int i = 0; i < size; i++) {
 			Entity e = entities.get(i);
 			e.setDelta(delta);
-			e.updateUpgrades();
 			e.update();
 			if (e.isDead()) {
 				entities.remove(i);
@@ -83,7 +81,6 @@ public class ManagerEntity {
 	// Essentially a reset command, clears all lists and resets score
 	public void clear() {
 		entities.clear();
-		remove.clear();
 		score = 0;
 	}
 

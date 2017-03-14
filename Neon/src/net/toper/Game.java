@@ -11,6 +11,7 @@ public class Game {
 	public static Background bg;
 	public static Random rand = new Random();
 	public static ManagerEffects fx = new ManagerEffects();
+	public static ManagerProjectile proj = new ManagerProjectile();
 
 	public static Physics p;
 	private static Thread physicsThread;
@@ -29,6 +30,7 @@ public class Game {
 		case PLAYING:
 			initGame();
 			em.update();
+			proj.update();
 			fx.update();
 			gen.map.update();
 			break;
@@ -70,10 +72,11 @@ public class Game {
 		switch (GUI.getState()) {
 		case PLAYING:
 			bg.draw();
-			fx.render(0);
+			fx.draw(0);
 			gen.map.draw();
+			proj.draw();
 			em.draw();
-			fx.render(1);
+			fx.draw(1);
 			break;
 		case PAUSE:
 			break;

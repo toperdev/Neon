@@ -8,7 +8,7 @@ public class Sprite {
 	private Image origTex, tex;
 	private float x, y, offX, offY, scale, origScale, rot;
 	private Render r = Game.r;
-	boolean flipped = false;
+	private boolean flipped = false;
 
 	public Sprite(String tex, float scale) {
 		try {
@@ -71,8 +71,7 @@ public class Sprite {
 		if (!flipped)
 			r.drawImage(tex, x + offX, y + offY, scale);
 		else {
-			r.drawImage(tex.getFlippedCopy(true, false), x + offX,
-					y + offY, scale);
+			r.drawImage(tex.getFlippedCopy(true, false), x + offX, y + offY, scale);
 		}
 	}
 

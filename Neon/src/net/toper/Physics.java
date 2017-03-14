@@ -6,10 +6,10 @@ import java.util.List;
 public class Physics implements Runnable {
 
 	final double ticks = 60D;
-	double ticksUpdates = 60D;
 	double ns = 1000000000 / ticks;
 	static float delta = 0;
 	private boolean running = true;
+	private boolean wait = false;
 
 	List<PhysicsElement> elements = new ArrayList<PhysicsElement>();
 
@@ -25,16 +25,19 @@ public class Physics implements Runnable {
 			}
 			lastTime = now;
 		}
-
 	}
 
 	public void updateElements() {
+		wait = true;
 		for (PhysicsElement e : elements) {
 			e.update(delta);
 		}
+		wait = false;
 	}
 
 	public int addElement(PhysicsElement e) {
+		while (wait) {
+		}
 		elements.add(e);
 		return elements.indexOf(e);
 	}

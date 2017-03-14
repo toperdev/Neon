@@ -22,7 +22,7 @@ public class EffectStar extends Effect {
 	}
 
 	public void draw() {
-		Game.r.drawRect(getFinalX() - width / 2, getFinalY() - width / 2, width, width, Color.white);
+		Game.r.fillRect(getFinalX() - width / 2, getFinalY() - width / 2, width, width, Color.white);
 	}
 
 }

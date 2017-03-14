@@ -10,29 +10,42 @@ import org.newdawn.slick.geom.Rectangle;
 public class Entity {
 
 	private int ID;
+
 	private float posX;
 	private float posY;
+	private float posZ;
+
 	private float screenX;
 	private float screenY;
+
 	private float oldScreenX;
 	private float oldScreenY;
 	private float changeScreenX;
 	private float changeScreenY;
-	private float z;
 	private float changeX;
 	private float changeY;
+
 	private float oldX;
 	private float oldY;
+
+	private float origScale;
 	private float scale;
 	private float rotation;
+
 	private float speed;
-	private float origScale;
 	private float delta;
+
+	private float damgAmt;
+
 	private float width;
 	private float height;
-	private float damgAmt;
+
 	private float hitBoxWidth;
 	private float hitBoxHeight;
+
+	private float weaponPosX;
+	private float weaponPosY;
+
 	private int type;
 
 	private Sprite s;
@@ -42,28 +55,20 @@ public class Entity {
 	private boolean link = true;
 
 	private List<Upgrade> upgrades = new ArrayList<Upgrade>();
+	private List<Integer> removeUpgrade = new ArrayList<Integer>();
+
+	private Weapon currentWeapon;
+	private boolean hasWeapon = false;
 
 	public Entity(float x, float y, float z, Sprite sprite, int type) {
 		this.posX = x;
 		this.posY = y;
-		this.z = z;
+		this.posZ = z;
 		setSprite(sprite);
 		scale = s.getScale();
 		origScale = scale;
 		this.width = sprite.getWidth();
 		this.height = sprite.getHeight();
-		this.hitBoxHeight = height;
-		this.hitBoxWidth = width;
-
-	}
-
-	public Entity(float x, float y, float z, float width, float height, int type) {
-		this.posX = x;
-		this.posY = y;
-		this.z = z;
-		origScale = scale;
-		this.width = width;
-		this.height = height;
 		this.hitBoxHeight = height;
 		this.hitBoxWidth = width;
 	}
@@ -76,16 +81,42 @@ public class Entity {
 		this.link = link;
 	}
 
+	public void setSprite(Sprite s) {
+		this.s = s;
+	}
+
 	public void update() {
+		updateLogic();
+		updateUpgrades();
+		updateWeapon();
+	}
+
+	public void updateLogic() {
+
+	}
+
+	public void updateWeapon() {
+		if (hasWeapon)
+			currentWeapon.update();
+	}
+
+	private void updateUpgrades() {
+		for (int i = 0; i < upgrades.size(); i++) {
+			upgrades.get(i).update(delta);
+			if (upgrades.get(i).isCompleted()) {
+				removeUpgrade.add(i);
+			}
+		}
+		for (int i : removeUpgrade) {
+			if (i < upgrades.size())
+				upgrades.remove(i);
+		}
+		removeUpgrade.clear();
 	}
 
 	public void move(float xAmt, float yAmt) {
 		moveX(xAmt);
 		moveY(yAmt);
-	}
-
-	public void setSprite(Sprite s) {
-		this.s = s;
 	}
 
 	public void draw() {
@@ -102,6 +133,9 @@ public class Entity {
 		s.setCenterOfRot(centerX, centerY);
 		s.setRot(rotation);
 		s.draw();
+		if (hasWeapon) {
+			currentWeapon.render();
+		}
 	}
 
 	public void setRemoveOnDead(boolean remove) {
@@ -267,7 +301,7 @@ public class Entity {
 	}
 
 	public float getZ() {
-		return z;
+		return posZ;
 	}
 
 	public float getY() {
@@ -384,24 +418,44 @@ public class Entity {
 			return null;
 	}
 
-	List<Integer> remove = new ArrayList<Integer>();
-
-	public void updateUpgrades() {
-		for (int i = 0; i < upgrades.size(); i++) {
-			upgrades.get(i).update(delta);
-			if (upgrades.get(i).isCompleted()) {
-				remove.add(i);
-			}
-		}
-		for (int i : remove) {
-			if (i < upgrades.size())
-				upgrades.remove(i);
-		}
-		remove.clear();
-	}
-
 	public int getNumUpgrades() {
 		return upgrades.size();
+	}
+
+	public void setWeaponPos(float x, float y) {
+		this.weaponPosX = x;
+		this.weaponPosY = y;
+	}
+
+	public float getWeaponHoldX() {
+		return weaponPosX;
+	}
+
+	public float getWeaponHoldY() {
+		return weaponPosY;
+	}
+
+	public void setWeapon(Weapon w) {
+		this.currentWeapon = w;
+		this.hasWeapon = true;
+	}
+
+	public void setWeaponFlip(boolean flip) {
+		if (hasWeapon)
+			currentWeapon.setFlipped(flip);
+	}
+
+	public void removeWeapon() {
+		this.hasWeapon = false;
+		this.currentWeapon = null;
+	}
+
+	public boolean hasWeapon() {
+		return hasWeapon;
+	}
+
+	public Weapon getCurrentWeapon() {
+		return currentWeapon;
 	}
 
 	public int getType() {
@@ -410,5 +464,11 @@ public class Entity {
 
 	public int getID() {
 		return ID;
+	}
+
+	public int getDir() {
+		if (s.isFlipped())
+			return 1;
+		return 0;
 	}
 }

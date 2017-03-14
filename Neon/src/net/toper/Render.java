@@ -15,7 +15,7 @@ public class Render {
 		img.draw((int) x, (int) y, scale);
 	}
 
-	public void drawRect(float x, float y, float width, float height, Color c) {
+	public void fillRect(float x, float y, float width, float height, Color c) {
 		Main.g.setColor(c);
 		Main.g.fillRect(x, y, width, height);
 	}

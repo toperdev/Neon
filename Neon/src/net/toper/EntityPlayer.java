@@ -35,6 +35,7 @@ public class EntityPlayer extends Entity {
 		setLinkPosAndScreen(false);
 		setScreenX(Main.getWidth() / 2 - getCenterX());
 		setScreenY(Main.getHeight() / 2 - getCenterY());
+
 		phys = Game.p.addElement(new PhysicsElementGravity(this));
 		movement = (PhysicsElementGravity) Game.p.getElement(phys);
 		movement.setPos(x, y);
@@ -42,14 +43,31 @@ public class EntityPlayer extends Entity {
 		movementValues.put("jump", origJumpSpeed);
 		movementValues.put("move", origPlayerMoveSpeed);
 		movementValues.put("anim", origPlayerAnimSpeed);
+
+		weaponPos(false);
+		setWeapon(new WeaponLaserGun(this));
 	}
 
-	public void update() {
+	public void weaponPos(boolean flip) {
+		if (!flip) {
+			setWeaponPos(48, 28);
+			setWeaponFlip(false);
+		} else {
+			setWeaponPos(0, 28);
+			setWeaponFlip(true);
+		}
+	}
+
+	public void updateLogic() {
 		processUpgrades();
 		Input input = Main.gc.getInput();
 		// Close game when the escape key is hit
 		if (input.isKeyDown(Input.KEY_ESCAPE)) {
 			Main.close();
+		}
+		if (input.isMouseButtonDown(0)) {
+			if (hasWeapon())
+				getCurrentWeapon().fireLoop();
 		}
 		if (input.isKeyDown(Input.KEY_RIGHT) || input.isKeyDown(Input.KEY_D)) {
 			getSprite().flip(false);
@@ -64,6 +82,8 @@ public class EntityPlayer extends Entity {
 			if (movement.isOnGround())
 				movement.setVerticalVelocity(movementValues.get("jump"));
 		}
+
+		weaponPos(getSprite().isFlipped());
 
 		setX(movement.getX());
 		setY(movement.getY());

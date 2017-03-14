@@ -12,7 +12,7 @@ public class PhysicsElementGravity extends PhysicsElement {
 	private float deltaX;
 	private float deltaY;
 
-	private float verticalVeloctiy;
+	private float verticalVelocity;
 	private float horizontalVelocity;
 
 	private float yTime;
@@ -30,7 +30,7 @@ public class PhysicsElementGravity extends PhysicsElement {
 
 	public void update(float delta) {
 		yTime += delta;
-		deltaY = ((verticalVeloctiy) + (0.5f * gravity * yTime)) * delta;
+		deltaY = ((verticalVelocity) + (0.5f * gravity * yTime)) * delta;
 		if (deltaY < -terminalVelocity) {
 			deltaY = -terminalVelocity;
 		}
@@ -44,7 +44,7 @@ public class PhysicsElementGravity extends PhysicsElement {
 		}
 		if (Game.gen.collisionAt(new Rectangle(getX(), getY(), bounds.getWidth(), bounds.getHeight() - deltaY))) {
 			deltaY = 0;
-			verticalVeloctiy = 0;
+			verticalVelocity = 0;
 			yTime = 0;
 			isOnGround = true;
 		} else {
@@ -52,7 +52,7 @@ public class PhysicsElementGravity extends PhysicsElement {
 		}
 		if (Game.gen.collisionAt(new Rectangle(getX(), getY() - deltaY, bounds.getWidth(), bounds.getHeight()))) {
 			deltaY = 0;
-			verticalVeloctiy = -verticalVeloctiy / 10f;
+			verticalVelocity = -verticalVelocity / 10f;
 			yTime = 0;
 		}
 
@@ -86,7 +86,7 @@ public class PhysicsElementGravity extends PhysicsElement {
 	}
 
 	public void setVerticalVelocity(float speed) {
-		verticalVeloctiy = speed;
+		verticalVelocity = speed;
 	}
 
 	public void setScale(float scale) {

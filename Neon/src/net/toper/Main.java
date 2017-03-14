@@ -35,7 +35,7 @@ public class Main extends BasicGame {
 	public static void main(String[] args) {
 		try {
 			app = new AppGameContainer(new Main());
-			app.setDisplayMode(1000, (1000 / 16) * 9, false);
+			app.setDisplayMode(1400, (1400 / 16) * 9, false);
 			app.setShowFPS(false);
 			app.setAlwaysRender(true);
 			app.start();

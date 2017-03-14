@@ -27,7 +27,7 @@ public class ManagerEffects {
 		}
 	}
 
-	public void render(int call) {
+	public void draw(int call) {
 		if (call == 1)
 			for (Float e : front.keySet()) {
 				Effect fx = front.get(e);
