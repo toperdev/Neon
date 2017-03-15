@@ -3,7 +3,7 @@ package net.toper;
 public class Weapon extends Holdable {
 
 	private float damageAmount;
-	private float fireSpeed = 0.1f;
+	private float fireSpeed = 0.075f;
 	private float fireCount;
 	private Sprite s;
 	private boolean isFlipped = false;
@@ -24,8 +24,8 @@ public class Weapon extends Holdable {
 	}
 
 	public void update() {
-		this.s.setX(getParent().getWeaponHoldX() + getParent().getScreenX());
-		this.s.setY(getParent().getWeaponHoldY() + getParent().getScreenY());
+		s.setX(getParent().getWeaponHoldX() + getParent().getScreenX());
+		s.setY(getParent().getWeaponHoldY() + getParent().getScreenY());
 		updateLogic();
 	}
 
@@ -53,5 +53,9 @@ public class Weapon extends Holdable {
 
 	public void setFlipped(boolean flip) {
 		this.isFlipped = flip;
+	}
+
+	public void resetFire() {
+		fireCount = 1;
 	}
 }

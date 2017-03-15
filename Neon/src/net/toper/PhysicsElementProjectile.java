@@ -26,7 +26,8 @@ public class PhysicsElementProjectile extends PhysicsElement {
 		deltaY = verticalVelocity * delta;
 		deltaX = horizontalVelocity * delta;
 
-		if (Game.gen.collisionAt(new Rectangle(getX(), getY(), bounds.getWidth(), bounds.getHeight()))) {
+		if (Game.gen
+				.collisionAt(new Rectangle(getX(), getY(), bounds.getWidth() + deltaX, bounds.getHeight() + deltaY))) {
 			hit = true;
 		} else {
 			x += deltaX;

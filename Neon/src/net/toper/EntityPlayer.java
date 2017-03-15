@@ -68,6 +68,8 @@ public class EntityPlayer extends Entity {
 		if (input.isMouseButtonDown(0)) {
 			if (hasWeapon())
 				getCurrentWeapon().fireLoop();
+		}else{
+			getCurrentWeapon().resetFire();
 		}
 		if (input.isKeyDown(Input.KEY_RIGHT) || input.isKeyDown(Input.KEY_D)) {
 			getSprite().flip(false);
