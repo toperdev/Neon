@@ -57,9 +57,10 @@ public class Game {
 	private static void initGame() {
 		if (!hasGameStarted) {
 			p = new Physics();
-			player = new EntityPlayer(MapGen.getPlayerSpawnX(), MapGen.getPlayerSpawnY());
+			player = new EntityPlayer();
 			gen.gen();
 			em.init();
+			player.init(MapGen.getPlayerSpawnX() * MapGen.getTileSize(), MapGen.getPlayerSpawnY()* MapGen.getTileSize());
 			em.addEntity(player);
 			bg = new Background();
 			physicsThread = new Thread(p);
@@ -78,11 +79,7 @@ public class Game {
 			em.draw();
 			fx.draw(1);
 			break;
-		case PAUSE:
-			break;
-		case LOST:
-			break;
-		case MAIN:
+		default:
 			break;
 		}
 		GUI.renderCurrent();
@@ -94,6 +91,25 @@ public class Game {
 
 	public static int getScore() {
 		return em.getScore();
+	}
+
+	private static void stopGame() {
+		em.clear();
+		fx.clear();
+		proj.clear();
+		try {
+			p.stop();
+			physicsThread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void reset() {
+		hasGameStarted = false;
+		stopGame();
+		initGame();
+		GUI.setState(GameState.PLAYING);
 	}
 
 }

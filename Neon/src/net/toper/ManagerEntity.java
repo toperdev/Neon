@@ -81,6 +81,7 @@ public class ManagerEntity {
 	// Essentially a reset command, clears all lists and resets score
 	public void clear() {
 		entities.clear();
+		temp.clear();
 		score = 0;
 	}
 

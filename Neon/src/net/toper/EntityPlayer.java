@@ -12,7 +12,7 @@ public class EntityPlayer extends Entity {
 	private int animWidth = 128;
 	private int hitWidth = 64;
 	private float animStep;
-	public static Color mapGenReference = Color.red;
+	public static Color mapGenReference = new Color(0xffff0000);
 
 	// Initial values, final to ensure they don't get changed through upgrades
 	// or something
@@ -26,8 +26,8 @@ public class EntityPlayer extends Entity {
 	private int phys;
 	private PhysicsElementGravity movement;
 
-	public EntityPlayer(float x, float y) {
-		super(x, y, 10, new Sprite("res/character animation.png", origScale), 1);
+	public EntityPlayer() {
+		super(0, 0, 10, new Sprite("res/character animation.png", origScale), 1);
 		setScale(origScale);
 		getSprite().crop(0, animWidth, 0, getHeight());
 		setWidth(animWidth);
@@ -36,6 +36,11 @@ public class EntityPlayer extends Entity {
 		setScreenX(Main.getWidth() / 2 - getCenterX());
 		setScreenY(Main.getHeight() / 2 - getCenterY());
 
+	}
+
+	public void init(float x, float y) {
+		setX(x);
+		setY(y);
 		phys = Game.p.addElement(new PhysicsElementGravity(this));
 		movement = (PhysicsElementGravity) Game.p.getElement(phys);
 		movement.setPos(x, y);
@@ -46,6 +51,7 @@ public class EntityPlayer extends Entity {
 
 		weaponPos(false);
 		setWeapon(new WeaponLaserGun(this));
+
 	}
 
 	public void weaponPos(boolean flip) {
@@ -59,6 +65,7 @@ public class EntityPlayer extends Entity {
 	}
 
 	public void updateLogic() {
+		processLimits();
 		processUpgrades();
 		Input input = Main.gc.getInput();
 		// Close game when the escape key is hit
@@ -68,7 +75,7 @@ public class EntityPlayer extends Entity {
 		if (input.isMouseButtonDown(0)) {
 			if (hasWeapon())
 				getCurrentWeapon().fireLoop();
-		}else{
+		} else {
 			getCurrentWeapon().resetFire();
 		}
 		if (input.isKeyDown(Input.KEY_RIGHT) || input.isKeyDown(Input.KEY_D)) {
@@ -100,6 +107,12 @@ public class EntityPlayer extends Entity {
 
 		Game.gen.map.offset(-getX() + getScreenX(), -getY() + getScreenY());
 		Game.bg.offset((Game.gen.map.getOffsetX() / 2f), (Game.gen.map.getOffsetY() / 2f));
+	}
+
+	public void processLimits() {
+		if (getY() > 3500f) {
+			GUI.setState(GameState.LOST);
+		}
 	}
 
 	public void processUpgrades() {

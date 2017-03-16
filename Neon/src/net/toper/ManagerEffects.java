@@ -43,5 +43,10 @@ public class ManagerEffects {
 				}
 			}
 	}
+	
+	public void clear(){
+		front.clear();
+		back.clear();
+	}
 
 }

@@ -3,7 +3,7 @@ package net.toper;
 public class GUIMenuMain extends GUI {
 
 	public GUIMenuMain() {
-		getFont().setSize(16);
+		getFont().setSize(20);
 		elementIDs.put("title", addElement(new GUIElementText(Main.getWidth() / 2f, 100, "It's Not Mario", true)));
 		elementIDs.put("start", addElement(new GUIElementText(Main.getWidth() / 2f, 200, "Start", true)));
 		elementIDs.put("quit", addElement(new GUIElementText(Main.getWidth() / 2f, 225, "Quit", true)));

@@ -14,10 +14,12 @@ public class Main extends BasicGame {
 	public static Graphics g;
 	public static Input input;
 
-	long lastTime = System.nanoTime();
-	final double ticks = 60D;
-	double ns = 1000000000 / ticks;
-	static float delta = 0;
+	private long lastTime = System.nanoTime();
+	private final double ticks = 60D;
+	private double ns = 1000000000 / ticks;
+	private static float delta = 0;
+
+	private final static int width = 1000;
 
 	private double updates;
 	private static float fps;
@@ -35,7 +37,7 @@ public class Main extends BasicGame {
 	public static void main(String[] args) {
 		try {
 			app = new AppGameContainer(new Main());
-			app.setDisplayMode(1400, (1400 / 16) * 9, false);
+			app.setDisplayMode(width, (width / 16) * 9, false);
 			app.setShowFPS(false);
 			app.setAlwaysRender(true);
 			app.start();

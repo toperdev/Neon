@@ -20,6 +20,7 @@ public class GUIElementClickable extends GUIElement {
 	}
 
 	public void update() {
+		isClicked = false;
 		if (getBounds().intersects(new Rectangle(Main.input.getMouseX(), Main.input.getMouseY(), 1, 1))) {
 			hover = true;
 			parentGUI.getElement(parentID).setColor(hovColor);

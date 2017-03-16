@@ -18,13 +18,13 @@ public class GUI {
 
 	public static void update() {
 		GUI current = getCurrentMenu();
-		current.updateMenu();
 		for (int i = 0; i < current.elements.size(); i++) {
 			current.elements.get(i).update();
 			if (current.elements.get(i).done) {
 				current.elements.remove(i);
 			}
 		}
+		current.updateMenu();
 	}
 
 	public void draw() {

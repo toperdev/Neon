@@ -30,10 +30,15 @@ public class ManagerProjectile {
 			p.update();
 			if (p.isDead()) {
 				projectiles.remove(i);
-				//i--;
+				// i--;
 				size--;
 			}
 		}
+	}
+
+	public void clear() {
+		projectiles.clear();
+		temp.clear();
 	}
 
 }
