@@ -4,6 +4,8 @@ import org.newdawn.slick.geom.Rectangle;
 
 public class PhysicsElementGravity extends PhysicsElement {
 
+	private Entity e;
+
 	private float gravity = -9.8f;
 	private float terminalVelocity = 250f;
 
@@ -24,9 +26,9 @@ public class PhysicsElementGravity extends PhysicsElement {
 	private Rectangle bounds;
 
 	public PhysicsElementGravity(Entity e) {
+		this.e = e;
 		x = e.getX();
 		y = e.getY();
-		bounds = e.getHitbox();
 		gravity *= e.getScale();
 		this.e = e;
 	}
@@ -60,7 +62,6 @@ public class PhysicsElementGravity extends PhysicsElement {
 		if (Game.gen.collisionAt(
 				new Rectangle(bounds.getX(), bounds.getY() - deltaY, bounds.getWidth(), bounds.getHeight()))) {
 			deltaY = 0;
-			verticalVelocity = -verticalVelocity / 10f;
 			yTime = 0;
 		}
 

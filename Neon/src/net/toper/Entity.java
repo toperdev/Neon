@@ -3,6 +3,7 @@ package net.toper;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.geom.Rectangle;
@@ -401,8 +402,13 @@ public class Entity {
 	}
 
 	public Rectangle getHitbox() {
+<<<<<<< HEAD
 		return new Rectangle(getX() + (getWidth() / 2) - (hitBoxWidth), getY() + (getHeight() / 2) - (hitBoxHeight),
 				hitBoxWidth, hitBoxHeight);
+=======
+		return new Rectangle(getX() + (getWidth() / 2) - (hitBoxWidth / 2),
+				getY() + (getHeight() / 2) - hitBoxHeight / 2, hitBoxWidth, hitBoxHeight);
+>>>>>>> dcd9acd00ae5164054b8976f8eca86b63a6840b8
 	}
 
 	public int addUpgrade(Upgrade u) {

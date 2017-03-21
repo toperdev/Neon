@@ -63,7 +63,7 @@ public class Game {
 			player.init(MapGen.getPlayerSpawnX() * MapGen.getTileSize(),
 					MapGen.getPlayerSpawnY() * MapGen.getTileSize());
 			em.addEntity(player);
-			bg = new Background();
+			bg = new Background(MapGen.getPlayerSpawnX(),MapGen.getPlayerSpawnY());
 			physicsThread = new Thread(p);
 			physicsThread.start();
 			hasGameStarted = true;
