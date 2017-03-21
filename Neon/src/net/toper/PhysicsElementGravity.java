@@ -4,6 +4,8 @@ import org.newdawn.slick.geom.Rectangle;
 
 public class PhysicsElementGravity extends PhysicsElement {
 
+	private Entity e;
+
 	private float gravity = -9.8f;
 	private float terminalVelocity = 250f;
 
@@ -22,13 +24,14 @@ public class PhysicsElementGravity extends PhysicsElement {
 	private Rectangle bounds;
 
 	public PhysicsElementGravity(Entity e) {
+		this.e = e;
 		x = e.getX();
 		y = e.getY();
-		bounds = e.getHitbox();
 		gravity *= e.getScale();
 	}
 
 	public void update(float delta) {
+		bounds = e.getHitbox();
 		yTime += delta;
 		deltaY = ((verticalVelocity) + (0.5f * gravity * yTime)) * delta;
 		if (deltaY < -terminalVelocity) {
@@ -36,13 +39,16 @@ public class PhysicsElementGravity extends PhysicsElement {
 		}
 		deltaX = horizontalVelocity * delta;
 
-		if (Game.gen.collisionAt(new Rectangle(getX(), getY(), bounds.getWidth() + deltaX, bounds.getHeight()))) {
+		if (Game.gen.collisionAt(
+				new Rectangle(bounds.getX(), bounds.getY(), bounds.getWidth() + deltaX, bounds.getHeight()))) {
 			deltaX = 0;
 		}
-		if (Game.gen.collisionAt(new Rectangle(getX() + deltaX, getY(), bounds.getWidth(), bounds.getHeight()))) {
+		if (Game.gen.collisionAt(
+				new Rectangle(bounds.getX() + deltaX, bounds.getY(), bounds.getWidth(), bounds.getHeight()))) {
 			deltaX = 0;
 		}
-		if (Game.gen.collisionAt(new Rectangle(getX(), getY(), bounds.getWidth(), bounds.getHeight() - deltaY))) {
+		if (Game.gen.collisionAt(
+				new Rectangle(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight() - deltaY))) {
 			deltaY = 0;
 			verticalVelocity = 0;
 			yTime = 0;
@@ -50,9 +56,9 @@ public class PhysicsElementGravity extends PhysicsElement {
 		} else {
 			isOnGround = false;
 		}
-		if (Game.gen.collisionAt(new Rectangle(getX(), getY() - deltaY, bounds.getWidth(), bounds.getHeight()))) {
+		if (Game.gen.collisionAt(
+				new Rectangle(bounds.getX(), bounds.getY() - deltaY, bounds.getWidth(), bounds.getHeight()))) {
 			deltaY = 0;
-			verticalVelocity = -verticalVelocity / 10f;
 			yTime = 0;
 		}
 

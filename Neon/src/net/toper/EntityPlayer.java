@@ -72,7 +72,7 @@ public class EntityPlayer extends Entity {
 		if (input.isKeyDown(Input.KEY_ESCAPE)) {
 			Main.close();
 		}
-		if (input.isMouseButtonDown(0)) {
+		if (input.isMouseButtonDown(0) || input.isKeyDown(Input.KEY_E)) {
 			if (hasWeapon())
 				getCurrentWeapon().fireLoop();
 		} else {

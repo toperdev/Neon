@@ -4,23 +4,25 @@ import org.newdawn.slick.Color;
 
 public class Background {
 
-	private float offX;
-	private float offY;
-	private int maxDepth = 5;
-	private int numStars = 3000;
+	private float xOff;
+	private float yOff;
+	private int maxDepth = 4;
+	private int numStars = 5000;
 
-	public Background() {
+	public Background(float xOff, float yOff) {
+		this.xOff = xOff;
+		this.yOff = yOff;
 		for (int i = 0; i < numStars; i++) {
-			int x = Game.rand.nextInt(MapGen.getWidth());
-			int y = Game.rand.nextInt(MapGen.getHeight());
+			int x = Game.rand.nextInt(MapGen.getWidth() * 3);
+			int y = Game.rand.nextInt(MapGen.getHeight() * 3);
 			float z = (Game.rand.nextFloat() * maxDepth) + 1f;
-			Game.fx.addEffect(new EffectStar(x, y, -z));
+			Game.fx.addEffect(new EffectStar(x - xOff, y - yOff, -z));
 		}
 	}
 
 	public void offset(float x, float y) {
-		this.offX = x;
-		this.offY = y;
+		this.xOff = x;
+		this.yOff = y;
 	}
 
 	public void draw() {
@@ -28,11 +30,11 @@ public class Background {
 	}
 
 	public float getOffX() {
-		return offX;
+		return xOff;
 	}
 
 	public float getOffY() {
-		return offY;
+		return yOff;
 	}
 
 }
