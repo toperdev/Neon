@@ -52,8 +52,8 @@ public class Main extends BasicGame {
 		g = gc.getGraphics();
 		i.setInput(gc.getInput());
 		input = gc.getInput();
-		Game.init();
 		delta = 0;
+		Game.init();
 		lastTime = System.nanoTime();
 	}
 

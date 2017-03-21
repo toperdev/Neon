@@ -8,7 +8,7 @@ public class UpgradeLowGravity extends Upgrade {
 		setLife(100f);
 		setDecay(0.65f);
 		setNewValue("jump", 100f * parent.getScale());
-		setName("Low Gravity");
+		setName("High Jump");
 	}
 
 }

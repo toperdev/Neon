@@ -401,8 +401,8 @@ public class Entity {
 	}
 
 	public Rectangle getHitbox() {
-		return new Rectangle(getX() + (getWidth() / 2) - hitBoxWidth / 2, getCenterY() - hitBoxHeight / 2, hitBoxWidth,
-				hitBoxHeight);
+		return new Rectangle(getX() + (getWidth() / 2) - (hitBoxWidth), getY() + (getHeight() / 2) - (hitBoxHeight),
+				hitBoxWidth, hitBoxHeight);
 	}
 
 	public int addUpgrade(Upgrade u) {

@@ -8,7 +8,7 @@ public class MapGen {
 	public Map map = new Map();
 	private static float mapScale = 1f;
 	private static float tileSize = 64f;
-	private static int mapWidth = 4000;
+	private static int mapWidth = 0;
 	private static int mapHeight;
 	private static int playerSpawnX, playerSpawnY;
 	Image mapSource;
@@ -16,7 +16,9 @@ public class MapGen {
 	public MapGen() {
 		try {
 			mapSource = new Image("res/mapgen.png");
-			mapHeight = (mapWidth / mapSource.getWidth()) * mapSource.getHeight();
+			mapWidth = (int) (mapSource.getWidth() * tileSize);
+			mapHeight = (int) (mapSource.getHeight() * tileSize);
+			System.out.println(mapHeight);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -31,11 +33,9 @@ public class MapGen {
 				}
 				if (mapSource.getColor(x, y).equals(TileWall.mapGenReference)) {
 					map.addTile(x, y, new TileWall(x, y, mapScale, tileSize));
-				}
-				else if (mapSource.getColor(x, y).equals(TileButton.mapGenReference)) {
+				} else if (mapSource.getColor(x, y).equals(TileButton.mapGenReference)) {
 					map.addTile(x, y, new TileButton(x, y, mapScale, tileSize, false, 0));
-				}
-				else if (mapSource.getColor(x, y).equals(TileButton.mapGenReference2)) {
+				} else if (mapSource.getColor(x, y).equals(TileButton.mapGenReference2)) {
 					map.addTile(x, y, new TileButton(x, y, mapScale, tileSize, false, 1));
 				}
 			}

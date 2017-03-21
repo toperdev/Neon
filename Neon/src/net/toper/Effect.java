@@ -2,6 +2,7 @@ package net.toper;
 
 public class Effect {
 
+	private int ID;
 	private float delta;
 	private float x;
 	private float y;
@@ -67,6 +68,14 @@ public class Effect {
 
 	public void draw() {
 
+	}
+
+	public void setID(int ID) {
+		this.ID = ID;
+	}
+
+	public int getID() {
+		return ID;
 	}
 
 }

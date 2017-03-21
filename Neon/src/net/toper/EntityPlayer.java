@@ -10,7 +10,7 @@ public class EntityPlayer extends Entity {
 	// Scale and spawn point color initializer
 	public static float origScale = 0.6f;
 	private int animWidth = 128;
-	private int hitWidth = 64;
+	private int hitWidth = 128/3;
 	private float animStep;
 	public static Color mapGenReference = new Color(0xffff0000);
 
@@ -110,7 +110,7 @@ public class EntityPlayer extends Entity {
 	}
 
 	public void processLimits() {
-		if (getY() > 3500f) {
+		if (getY() > 35000f) {
 			GUI.setState(GameState.LOST);
 		}
 	}
