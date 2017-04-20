@@ -36,7 +36,7 @@ public class TileButton extends Tile {
 		}
 	}
 
-	public void update() {
+	public void updateLogic() {
 		Rectangle tempBounds = new Rectangle(getBounds().getX(), getBounds().getY() - height, getBounds().getWidth(),
 				getBounds().getHeight());
 		if (Game.gen.collisionBetween(Game.player.getBounds(), tempBounds)) {

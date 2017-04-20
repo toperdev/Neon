@@ -1,37 +1,39 @@
 package net.toper;
 
-import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.Color;
 
 public class Tile {
 
 	private Sprite s;
 	private float scale;
-	private float x;
-	private float y;
+	private Vector position = new Vector();
 	private boolean collidable = true;
 	private boolean needsUpdate = false;
-	private Rectangle bounds;
+	private AABB bounds;
 
 	public Tile(float x, float y, float tileSize, Sprite s) {
-		this.x = x;
-		this.y = y;
+		this.position.x = x * tileSize;
+		this.position.y = y * tileSize;
 		this.s = s;
 		this.s.scale(tileSize / s.getWidth());
-		this.s.setX(x * tileSize);
-		this.s.setY(y * tileSize);
-		bounds = new Rectangle(x * tileSize, y * tileSize, s.getWidth(), s.getHeight());
+		this.s.setX(position.x);
+		this.s.setY(position.y);
+		System.out.println(getWidth() + " " + getHeight());
+		bounds = new AABB(getWidth()/2, getHeight()/2);
+		System.out.println(position.x + " " + position.y);
 	}
 
 	public void draw() {
 		s.draw();
+		Game.r.fillRect(bounds.center.x+Game.bg.getOffX(), bounds.center.y+Game.bg.getOffY(), bounds.r[0], bounds.r[1], Color.white);
 	}
 
 	public float getX() {
-		return x;
+		return position.x;
 	}
 
 	public float getY() {
-		return y;
+		return position.y;
 	}
 
 	public void setOffset(float offX, float offY) {
@@ -51,7 +53,7 @@ public class Tile {
 		return scale;
 	}
 
-	public Rectangle getBounds() {
+	public AABB getAABB() {
 		return bounds;
 	}
 
@@ -63,8 +65,14 @@ public class Tile {
 		return collidable;
 	}
 
-	public void update() {
+	public void updateLogic() {
 
+	}
+
+	public void update() {
+		bounds.update(position);
+		if (needsUpdate)
+			updateLogic();
 	}
 
 	public boolean needsUpdate() {
@@ -78,8 +86,8 @@ public class Tile {
 	public void setScale(float scale) {
 		this.scale = scale;
 	}
-	
-	public Sprite getSprite(){
+
+	public Sprite getSprite() {
 		return s;
 	}
 

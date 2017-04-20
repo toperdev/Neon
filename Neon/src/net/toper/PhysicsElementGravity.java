@@ -1,89 +1,73 @@
 package net.toper;
 
-import org.newdawn.slick.geom.Rectangle;
-
 public class PhysicsElementGravity extends PhysicsElement {
 
-	private Entity e;
-
 	private float gravity = -9.8f;
-	private float terminalVelocity = 250f;
-
-	private Entity e;
-
-	private float x;
-	private float y;
-	private float deltaX;
-	private float deltaY;
+	private float terminalVelocity = 50f;
 
 	private float verticalVelocity;
 	private float horizontalVelocity;
 
+	private Entity e;
+
 	private float yTime;
 
-	private boolean isOnGround = false;
-
-	private Rectangle bounds;
+	private boolean isOnGround = true;
 
 	public PhysicsElementGravity(Entity e) {
-		this.e = e;
-		x = e.getX();
-		y = e.getY();
+		super(e.getBounds().r[0], e.getBounds().r[1]);
+		position.x = e.getBounds().center.x;
+		position.y = e.getBounds().center.y;
 		gravity *= e.getScale();
 		this.e = e;
 	}
 
 	public void update(float delta) {
-		bounds = e.getHitbox();
 		yTime += delta;
-		deltaY = ((verticalVelocity) + (0.5f * gravity * yTime)) * delta;
-		if (deltaY < -terminalVelocity) {
-			deltaY = -terminalVelocity;
+		velocity.y = ((verticalVelocity) + (0.5f * gravity * yTime)) * delta;
+		if (velocity.y < -terminalVelocity) {
+			velocity.y = -terminalVelocity;
 		}
-		deltaX = horizontalVelocity * delta;
-
-		if (Game.gen.collisionAt(
-				new Rectangle(bounds.getX(), bounds.getY(), bounds.getWidth() + deltaX, bounds.getHeight()))) {
-			deltaX = 0;
+		velocity.x = horizontalVelocity * delta;
+		if (checkTile(new Vector(velocity.x, 0))) {
+			velocity.x = 0;
 		}
-		if (Game.gen.collisionAt(
-				new Rectangle(bounds.getX() + deltaX, bounds.getY(), bounds.getWidth(), bounds.getHeight()))) {
-			deltaX = 0;
-		}
-		if (Game.gen.collisionAt(
-				new Rectangle(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight() - deltaY))) {
-			deltaY = 0;
-			verticalVelocity = 0;
-			yTime = 0;
+		if (checkTile(new Vector(0, -velocity.y))) {
+			velocity.y = 0;
 			isOnGround = true;
-		} else {
+		}else{
 			isOnGround = false;
 		}
-		if (Game.gen.collisionAt(
-				new Rectangle(bounds.getX(), bounds.getY() - deltaY, bounds.getWidth(), bounds.getHeight()))) {
-			deltaY = 0;
-			yTime = 0;
-		}
-
-		x += deltaX;
-		y -= deltaY;
+		e.position.x += velocity.x;
+		e.position.y -= velocity.y;
 		horizontalVelocity = 0;
+		bounds.update(e.position);
+	}
+
+	public boolean checkTile(Vector v) {
+		AABB bounds2 = bounds;
+		bounds2.update(e.position.add(v));
+		for (int y = 0; y < MapGen.getHeight()/MapGen.getTileSize(); y++) {
+			for (int x = 0; x < MapGen.getWidth()/MapGen.getTileSize(); x++) {
+				Tile t = Game.gen.getTile(new Vector(x * MapGen.getTileSize(), y * MapGen.getTileSize()));
+				if (t != null) {
+					if (Collision.testAABBAABB(bounds2, t.getAABB())) {
+						System.out.println("m");
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+
 	}
 
 	public float getDeltaY() {
-		return deltaY;
+		return velocity.y;
 	}
 
 	public float getDeltaX() {
-		return deltaX;
-	}
-
-	public float getX() {
-		return x;
-	}
-
-	public float getY() {
-		return y;
+		return velocity.x;
 	}
 
 	public boolean isOnGround() {
@@ -96,6 +80,7 @@ public class PhysicsElementGravity extends PhysicsElement {
 
 	public void setVerticalVelocity(float speed) {
 		verticalVelocity = speed;
+		yTime = 0;
 	}
 
 	public void setScale(float scale) {
@@ -103,8 +88,8 @@ public class PhysicsElementGravity extends PhysicsElement {
 	}
 
 	public void setPos(float x, float y) {
-		this.x = x;
-		this.y = y;
+		e.position.x = x;
+		e.position.y = y;
 	}
 
 }

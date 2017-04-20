@@ -2,23 +2,21 @@ package net.toper;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Rectangle;
 
 public class MapGen {
 	public Map map = new Map();
 	private static float mapScale = 1f;
-	private static float tileSize = 64f;
+	private static int tileSize = 64;
 	private static int mapWidth = 0;
 	private static int mapHeight;
 	private static int playerSpawnX, playerSpawnY;
-	Image mapSource;
+	static Image mapSource;
 
 	public MapGen() {
 		try {
 			mapSource = new Image("res/mapgen.png");
 			mapWidth = (int) (mapSource.getWidth() * tileSize);
 			mapHeight = (int) (mapSource.getHeight() * tileSize);
-			System.out.println(mapHeight);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -32,25 +30,23 @@ public class MapGen {
 					playerSpawnY = y;
 				}
 				if (mapSource.getColor(x, y).equals(TileWall.mapGenReference)) {
-					map.addTile(x, y, new TileWall(x, y, mapScale, tileSize));
+					map.addTile(x * tileSize, y * tileSize, new TileWall(x, y, mapScale, tileSize));
 				} else if (mapSource.getColor(x, y).equals(TileButton.mapGenReference)) {
-					map.addTile(x, y, new TileButton(x, y, mapScale, tileSize, false, 0));
+					// map.addTile(x, y, new TileButton(x, y, mapScale,
+					// tileSize, false, 0));
 				} else if (mapSource.getColor(x, y).equals(TileButton.mapGenReference2)) {
-					map.addTile(x, y, new TileButton(x, y, mapScale, tileSize, false, 1));
+					// map.addTile(x, y, new TileButton(x, y, mapScale,
+					// tileSize, false, 1));
 				}
 			}
 		}
 	}
 
-	public boolean collisionAt(Rectangle bounds) {
-		return map.isInTile(bounds) == 1;
+	public Tile getTile(Vector position) {
+		return map.tiles.get((int) position.x + (int) position.y * mapWidth);
 	}
 
-	public boolean collisionBetween(Rectangle bounds, Rectangle bounds2) {
-		return map.isInTile(bounds, bounds2);
-	}
-
-	public static float getTileSize() {
+	public static int getTileSize() {
 		return tileSize;
 	}
 

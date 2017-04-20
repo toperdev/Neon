@@ -1,54 +1,47 @@
 package net.toper;
 
-import org.newdawn.slick.geom.Rectangle;
-
 public class PhysicsElementProjectile extends PhysicsElement {
-
-	private float x;
-	private float y;
-	private float deltaX;
-	private float deltaY;
 
 	private float verticalVelocity;
 	private float horizontalVelocity;
 
 	private boolean hit = false;
 
-	private Rectangle bounds;
-
 	public PhysicsElementProjectile(Projectile e) {
-		x = e.getX();
-		y = e.getY();
-		bounds = e.getHitbox();
+		super(e.getHitbox().getWidth(), e.getHitbox().getHeight());
+		position.x = e.getX();
+		position.y = e.getY();
 	}
 
 	public void update(float delta) {
-		deltaY = verticalVelocity * delta;
-		deltaX = horizontalVelocity * delta;
+		bounds.update(position);
+		velocity.y = verticalVelocity * delta;
+		velocity.x = horizontalVelocity * delta;
 
-		if (Game.gen
-				.collisionAt(new Rectangle(getX(), getY(), bounds.getWidth() + deltaX, bounds.getHeight() + deltaY))) {
-			hit = true;
+		Tile t1 = Game.gen.getTile(position);
+		if (t1 != null && Collision.testAABBAABB(bounds, t1.getAABB())) {
+			velocity.x = 0;
+			velocity.y = 0;
 		} else {
-			x += deltaX;
-			y += deltaY;
+			position.x += velocity.x;
+			position.y -= velocity.y;
 		}
 	}
 
 	public float getDeltaY() {
-		return deltaY;
+		return velocity.x;
 	}
 
 	public float getDeltaX() {
-		return deltaX;
+		return velocity.y;
 	}
 
 	public float getX() {
-		return x;
+		return position.x;
 	}
 
 	public float getY() {
-		return y;
+		return position.y;
 	}
 
 	public void setHorizontalVelocty(float speed) {
@@ -64,8 +57,8 @@ public class PhysicsElementProjectile extends PhysicsElement {
 	}
 
 	public void setPos(float x, float y) {
-		this.x = x;
-		this.y = y;
+		position.x = x;
+		position.y = y;
 	}
 
 }

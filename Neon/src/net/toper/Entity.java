@@ -6,15 +6,13 @@ import java.util.List;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
-import org.newdawn.slick.geom.Rectangle;
 
 public class Entity {
 
 	private int ID;
 
-	private float posX;
-	private float posY;
-	private float posZ;
+	protected Vector position;
+	private AABB bounds;
 
 	private float screenX;
 	private float screenY;
@@ -41,9 +39,6 @@ public class Entity {
 	private float width;
 	private float height;
 
-	private float hitBoxWidth;
-	private float hitBoxHeight;
-
 	private float weaponPosX;
 	private float weaponPosY;
 
@@ -62,16 +57,18 @@ public class Entity {
 	private boolean hasWeapon = false;
 
 	public Entity(float x, float y, float z, Sprite sprite, int type) {
-		this.posX = x;
-		this.posY = y;
-		this.posZ = z;
+		position = new Vector();
+		this.position.x = x;
+		this.position.y = y;
+		this.position.z = z;
 		setSprite(sprite);
 		scale = s.getScale();
 		origScale = scale;
-		this.width = sprite.getWidth();
-		this.height = sprite.getHeight();
-		this.hitBoxHeight = height;
-		this.hitBoxWidth = width;
+		setWidth(sprite.getWidth());
+		setHeight(sprite.getHeight());
+
+		position = new Vector();
+		bounds = new AABB(width, height);
 	}
 
 	public void setID(int id) {
@@ -87,6 +84,7 @@ public class Entity {
 	}
 
 	public void update() {
+		bounds.update(position);
 		updateLogic();
 		updateUpgrades();
 		updateWeapon();
@@ -125,8 +123,8 @@ public class Entity {
 		float centerX = s.getCenterX();
 		s.scale(scale);
 		if (link) {
-			s.setX(posX);
-			s.setY(posY);
+			s.setX(position.x);
+			s.setY(position.y);
 		} else {
 			s.setX(screenX);
 			s.setY(screenY);
@@ -137,6 +135,8 @@ public class Entity {
 		if (hasWeapon) {
 			currentWeapon.render();
 		}
+		Game.r.fillRect(bounds.center.x + Game.bg.getOffX(), bounds.center.y + Game.bg.getOffY(), bounds.r[0],
+				bounds.r[1], Color.white);
 	}
 
 	public void setRemoveOnDead(boolean remove) {
@@ -256,17 +256,17 @@ public class Entity {
 	}
 
 	public void moveX(float amt) {
-		posX += amt;
+		position.x += amt;
 		changeX = amt;
 	}
 
 	public void moveY(float amt) {
-		posY += amt;
+		position.y += amt;
 		changeY = amt;
 	}
 
 	public void setX(float x) {
-		this.posX = x;
+		position.x = x;
 		changeX = x - oldX;
 		oldX = x;
 	}
@@ -280,7 +280,7 @@ public class Entity {
 	}
 
 	public void setY(float y) {
-		this.posY = y;
+		position.y = y;
 		changeY = y - oldY;
 		oldY = y;
 	}
@@ -298,15 +298,15 @@ public class Entity {
 	}
 
 	public float getX() {
-		return posX;
+		return position.x;
 	}
 
 	public float getZ() {
-		return posZ;
+		return position.z;
 	}
 
 	public float getY() {
-		return posY;
+		return position.y;
 	}
 
 	public float getScreenX() {
@@ -347,10 +347,7 @@ public class Entity {
 
 	public void setWidth(float width) {
 		this.width = width;
-	}
-
-	public void setHitBoxWidth(float width) {
-		this.hitBoxWidth = width;
+		bounds = new AABB(this.width, this.height);
 	}
 
 	public float getHeight() {
@@ -359,10 +356,7 @@ public class Entity {
 
 	public void setHeight(float height) {
 		this.height = height;
-	}
-
-	public void setHitBoxHeight(float height) {
-		this.hitBoxHeight = height;
+		bounds = new AABB(this.width, this.height);
 	}
 
 	public void setCenter(float x, float y) {
@@ -397,18 +391,8 @@ public class Entity {
 		life -= damgAmt;
 	}
 
-	public Rectangle getBounds() {
-		return new Rectangle(getX(), getY(), getWidth(), getHeight());
-	}
-
-	public Rectangle getHitbox() {
-<<<<<<< HEAD
-		return new Rectangle(getX() + (getWidth() / 2) - (hitBoxWidth), getY() + (getHeight() / 2) - (hitBoxHeight),
-				hitBoxWidth, hitBoxHeight);
-=======
-		return new Rectangle(getX() + (getWidth() / 2) - (hitBoxWidth / 2),
-				getY() + (getHeight() / 2) - hitBoxHeight / 2, hitBoxWidth, hitBoxHeight);
->>>>>>> dcd9acd00ae5164054b8976f8eca86b63a6840b8
+	public AABB getBounds() {
+		return bounds;
 	}
 
 	public int addUpgrade(Upgrade u) {

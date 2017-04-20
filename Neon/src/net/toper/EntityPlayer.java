@@ -10,7 +10,6 @@ public class EntityPlayer extends Entity {
 	// Scale and spawn point color initializer
 	public static float origScale = 0.6f;
 	private int animWidth = 128;
-	private int hitWidth = 128/3;
 	private float animStep;
 	public static Color mapGenReference = new Color(0xffff0000);
 
@@ -27,11 +26,12 @@ public class EntityPlayer extends Entity {
 	private PhysicsElementGravity movement;
 
 	public EntityPlayer() {
-		super(0, 0, 10, new Sprite("res/character animation.png", origScale), 1);
-		setScale(origScale);
+		super(0, 0, 10, new Sprite("res/character animation.png", 1), 1);
+		// setScale(origScale);
 		getSprite().crop(0, animWidth, 0, getHeight());
-		setWidth(animWidth);
-		setHitBoxWidth(hitWidth);
+		setWidth(animWidth * 2);
+		setHeight(256);
+		System.out.println(getWidth() + " " + getHeight());
 		setLinkPosAndScreen(false);
 		setScreenX(Main.getWidth() / 2 - getCenterX());
 		setScreenY(Main.getHeight() / 2 - getCenterY());
@@ -65,6 +65,7 @@ public class EntityPlayer extends Entity {
 	}
 
 	public void updateLogic() {
+		System.out.println(position.x + " " + position.y + " " + getBounds().r[0] + " " + getBounds().r[1]);
 		processLimits();
 		processUpgrades();
 		Input input = Main.gc.getInput();
@@ -94,9 +95,6 @@ public class EntityPlayer extends Entity {
 
 		weaponPos(getSprite().isFlipped());
 
-		setX(movement.getX());
-		setY(movement.getY());
-
 		if (movement.getDeltaX() != 0)
 			animStep += (movementValues.get("move") / 35f) * getDelta();
 
@@ -106,7 +104,7 @@ public class EntityPlayer extends Entity {
 		getSprite().crop((int) ((step * animWidth)), animWidth, 0, getSprite().getOrigHeight());
 
 		Game.gen.map.offset(-getX() + getScreenX(), -getY() + getScreenY());
-		Game.bg.offset((Game.gen.map.getOffsetX() / 2f), (Game.gen.map.getOffsetY() / 2f));
+		Game.bg.offset((Game.gen.map.getOffsetX()), (Game.gen.map.getOffsetY()));
 	}
 
 	public void processLimits() {
